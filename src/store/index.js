@@ -6,7 +6,11 @@ export default createStore({
   state: {
     appliances: [],
     brands: [],
-    types: []
+    types: [],
+    reservation: {
+      appliances: [],
+      amounts: [],
+    }
   },
   getters: {
     appliances(state) {
@@ -18,16 +22,40 @@ export default createStore({
     types(state) {
       return state.types;
     },
+    reservation(state) {
+      return state.reservation;
+    },
+    getTotalAmountOfAppliancesInReservation(state, getters) {
+      let totalAmount = 0;
+      for(let i = 0; i < state.reservation.amounts.length; i++) {
+        console.log(state.reservation.amounts[i] + " " + totalAmount);
+        totalAmount += state.reservation.amounts[i];
+      }
+
+      return totalAmount;
+    }
   },
   mutations: {
     updateAppliances(state, appliances) {
       state.appliances = appliances;
     },
     updateBrands(state, brands) {
-        state.brands = brands;
+      state.brands = brands;
     },
     updateTypes(state, types) {
-        state.types = types;
+      state.types = types;
+    },
+    pushApplianceInReservation(state, appliance) {
+      // Check if appliances is already in reservation
+      let applianceInReservationIndex = state.reservation.appliances.findIndex(item => item.name == appliance.name);
+      if(applianceInReservationIndex != -1) {
+          // Appliance is in reservation -> ++ amount
+          state.reservation.amounts[applianceInReservationIndex]++;
+          return
+      }
+      // Appliance not yet in reservation set amount-> 1 
+      state.reservation.amounts.push(1);
+      state.reservation.appliances.push(appliance);
     }
   },
   actions: {
@@ -53,13 +81,6 @@ export default createStore({
             commit('updateTypes', response.data.data[0]);
         })
         .catch((error) => console.log(error));
-    },
-    getRequest(dataWanted) {
-      axios.get(baseAPIUrl + dataWanted)
-      .then((response) => {
-        return response.data.data[0];
-      })
-      .catch((error) => console.log(error));
     }
   },
   modules: {

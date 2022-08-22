@@ -3,25 +3,28 @@
     <div class="content">
         <div class="filter">
             <div v-if="brands.length" class="brands">
-                <strong @click="toggle('brands')">Merken: (toggle)</strong>
-                <ul v-if="showBrands">
-                    <li v-for="brand in brands" :key="brand.id" 
-                                                :class="{ isActive: brandNameFilter == brand.name}"
-                                                @click="brandNameFilter = brand.name">
-                        <span>{{ brand.name }}</span>
-                    </li>
-                </ul>
+                <strong @click="showBrands = !showBrands">Merken: (toggle)</strong>
+                <transition-group tag="ul" name="filter-list">
+                    <ul v-if="showBrands">
+                        <li v-for="brand in brands" :key="brand.id" 
+                                                    :class="{ isActive: brandNameFilter == brand.name}"
+                                                    @click="brandNameFilter = brand.name">
+                            <span>{{ brand.name }}</span>
+                        </li>
+                    </ul>
+                </transition-group>
             </div>
-
             <div v-if="types.length" class="types">
-                <strong @click="toggle('types')">Soorten: (toggle)</strong>
-                <ul v-if="showTypes">
-                    <li v-for="kind in types" :key="kind.id" 
-                                              :class="{ isActive: typeNameFilter == kind.name}"
-                                              @click="typeNameFilter = kind.name">
-                        <span>{{ kind.name }}</span>
-                    </li>
-                </ul>
+                <strong @click="showTypes = !showTypes">Soorten: (toggle)</strong>
+                <transition-group tag="ul" name="filter-list">
+                    <ul v-if="showTypes">
+                        <li v-for="kind in types" :key="kind.id" 
+                                                :class="{ isActive: typeNameFilter == kind.name}"
+                                                @click="typeNameFilter = kind.name">
+                            <span>{{ kind.name }}</span>
+                        </li>
+                    </ul>
+                </transition-group>
             </div>
             <div class="add-appliance">
                 <div>
@@ -43,9 +46,13 @@
             </div>
         </div>
         <div v-if="appliances.length" class="appliances-container">
-            <div v-for="appliance in appliances" :key="appliance.id">
-                <Appliance :appliance="appliance" />
-            </div>
+            <transition-group v-for="(appliance, index) in appliances" 
+                            :key="appliance.id"
+                            appear
+                            @before-enter="beforeEnter"
+                            @enter="enter">
+                <Appliance :appliance="appliance" :key="appliance.id" :data-index="index"/>
+            </transition-group>
         </div>
         <!-- <nav>
             <ul>
@@ -65,6 +72,7 @@
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import Appliance from '../../components/appliances/Appliance.vue';
+import gsap from 'gsap';
 
 export default {
     components: { Appliance },
@@ -100,18 +108,24 @@ export default {
             });
             return filteredCollection;
         }
-        const toggle = (itemToToggle) => {
-            if(itemToToggle == "brands") {
-                showBrands.value = !showBrands.value; 
-            }
-            if(itemToToggle == "types") {
-                showTypes.value = !showTypes.value;
-            }
+
+        const beforeEnter = (el) => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(100px)';
+        }
+        const enter = (el, done) => {
+            gsap.to(el, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                onComplete: done,
+                delay: el.dataset.index * 0.1,
+            });
         }
         return { appliances, brands, types, 
                 brandNameFilter, typeNameFilter, applianceNameFilter,
                 showBrands, showTypes,
-                toggle }
+                beforeEnter, enter}
 
     }
 }
@@ -186,4 +200,17 @@ export default {
     padding: 5px 2px;
     background: #aca89d;
 }
+/*--animations-- */
+.filter-list-enter-from, .filter-list-leave-to {
+    opacity: 0;
+    transform: scale(0.6);
+}
+.filter-list-enter-to, .filter-list-from {
+    opacity: 1;
+    transform: scale(1);
+}
+.filter-list-enter-active, .filter-list-leave-active {
+    transition: all 0.4s ease;
+}
+
 </style>

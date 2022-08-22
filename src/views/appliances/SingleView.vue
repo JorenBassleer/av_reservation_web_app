@@ -25,13 +25,18 @@
     </div>
 </template>
 <script>
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
 export default {
-    computed: {
-        appliance() {
-            return this.$store.state.appliances.find(appliance => appliance.id == this.$route.params.id);
-        }
-    },
     setup() {
+        const store = useStore();
+        const router = useRoute();
+
+        const appliance = computed(() => store.state.appliances.find(single => single.id == router.params.id));
+
+        return { appliance }
     },
 }
 </script>

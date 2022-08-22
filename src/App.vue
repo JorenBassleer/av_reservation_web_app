@@ -1,6 +1,12 @@
 <template> 
   <TheNavBar />
-  <router-view/>
+  <router-view v-slot="{ Component, route }">
+    <transition name="route" mode="out-in">
+      <div :key="route.name">
+        <component :is="Component"></component>
+      </div>
+    </transition>
+  </router-view>
   <TheFooter />
 </template>
 <script>
@@ -39,5 +45,21 @@ export default {
 body {
   margin: 0;
   min-height: 100%;
+}
+
+/* page animations */
+.route-enter-from {
+  opacity: 0;
+  transform: translateX(100px);
+}
+.route-enter-active {
+  transition: all 0.3s ease-out;
+}
+.route-leave-to {
+  opacity: 0;
+  transform: translateX(100px);
+}
+.route-leave-active {
+  transition: all 0.3s ease-in;
 }
 </style>

@@ -22,13 +22,13 @@
                 </div>
             </div>
             <div class="appliance-img">
-                <img :src="appliance.img_url" :alt="appliance.name" />
+                <img  :alt="appliance.name" />
             </div>
         </router-link>
     </div>
 </template>
 <script>
-import AddToCart from '../AddToCart.vue';
+import AddToCart from '../AddToReservationBtn.vue';
 
 export default {
     props: ['appliance'],
@@ -44,7 +44,6 @@ a, h2 {
     color: black;
 }
 .appliance-container {
-    z-index: -800000;
     flex-basis: auto;
     align-items: center;
     background: #f1eee8;

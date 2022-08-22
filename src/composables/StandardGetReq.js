@@ -9,7 +9,6 @@ const getRequest = (typeWanted) => {
         axios.get(baseAPIUrl + typeWanted)
         .then((response) => {
             requestedData.value = response.data.data[0];
-
         })
         .catch((err) => error.value = err);
     }
