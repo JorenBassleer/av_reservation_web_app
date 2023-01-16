@@ -1,28 +1,33 @@
-module.exports = [
+import Home from '../views/HomeView.vue';
+import IndexView from '../views/appliances/IndexView.vue';
+import SingleAppliance from '../views/appliances/SingleView.vue';
+import CreateAppliance from '../views/appliances/CreateView.vue';
+import CreateReservation from '../views/reservations/CreateView.vue';
+export default [
     {
       path: '/',
       name: 'home',
-      component: require('../views/HomeView.vue').default
+      component: Home
     },
     {
         path: '/apparaten',
         name: 'index-appliances',
-        component: require('../views/appliances/IndexView.vue').default
+        component: IndexView
     },
     {
         path: '/apparaten/:id',
         name: 'view-appliance',
-        component: require('../views/appliances/SingleView.vue').default,
+        component: SingleAppliance,
         props: true
     },
     {
     path: '/apparaten/nieuw',
     name: 'create-appliance',
-    component: require('../views/appliances/CreateView.vue').default,
+    component: CreateAppliance,
     },
     {
     path: '/mijn-reservatie',
     name: 'create-reservation',
-    component: require('../views/reservations/CreateView.vue').default,
+    component: CreateReservation,
     },
 ]
