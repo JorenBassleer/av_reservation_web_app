@@ -27,16 +27,12 @@
         </router-link>
     </div>
 </template>
-<script>
+<script setup>
+import { defineProps } from 'vue';
 import AddToCart from '../AddToReservationBtn.vue';
 
-export default {
-    props: ['appliance'],
-    components: { AddToCart },
-    setup() {
-        
-    },
-}
+const props = defineProps(['appliance']);
+
 </script>
 <style scoped>
 a, h2 {

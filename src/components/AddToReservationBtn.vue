@@ -3,24 +3,18 @@
         <button class="add-btn" :class="{animate: disabled}" @click.prevent="addToReservation(appliance)">Add</button>
     </div>
 </template>
-<script>
-import { ref } from 'vue';
+<script setup>
+import { ref, defineProps } from 'vue';
 import { useStore } from 'vuex';
-export default {
-    props: ['appliance'],
-    setup() {
-        const store = useStore();
-        const disabled = ref(false);
-        const addToReservation = (appliance) => {
-            disabled.value = true;
-            setTimeout(() => {
-                disabled.value = false;
-            }, 1000);
-            store.commit('pushApplianceInReservation', appliance);
-        }
-
-        return { disabled, addToReservation }
-    },
+const props = defineProps(['appliance']);
+const store = useStore();
+const disabled = ref(false);
+const addToReservation = (appliance) => {
+    disabled.value = true;
+    setTimeout(() => {
+        disabled.value = false;
+    }, 1000);
+    store.commit('pushApplianceInReservation', appliance);
 }
 </script>
 <style scoped>
