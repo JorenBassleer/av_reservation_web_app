@@ -1,11 +1,12 @@
 /**
  * @vitest-environment
  */
+import { mount } from '@vue/test-utils';
 import { describe, it } from "vitest";
-import Appliance from '../appliances/appliance.vue';
+import AddToReservationBtn from '../AddToReservationBtn.vue';
 
-describe('Appliance test', () => {
+describe('Add to reservation BTN test', () => {
     it('should render', () => {
-        const wrapper = mount(Appliance);
+        const wrapper = mount(AddToReservationBtn);
     });
 });
