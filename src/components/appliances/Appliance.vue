@@ -31,7 +31,12 @@
 import { defineProps } from 'vue';
 import AddToCart from '../AddToReservationBtn.vue';
 
-const props = defineProps(['appliance']);
+const props = defineProps({
+    appliance: {
+			type: [Object, Array],
+			required: true,
+		},
+});
 
 </script>
 <style scoped>
