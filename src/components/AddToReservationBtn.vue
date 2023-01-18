@@ -1,12 +1,23 @@
 <template>
     <div>
-        <button class="add-btn" :class="{animate: disabled}" @click.prevent="addToReservation(appliance)">Add</button>
+        <button 
+            class="add-btn" 
+            :class="{animate: disabled}" 
+            @click.prevent="addToReservation(appliance)"
+        >
+        Add
+    </button>
     </div>
 </template>
 <script setup>
 import { ref, defineProps } from 'vue';
 import { useStore } from 'vuex';
-const props = defineProps(['appliance']);
+const props = defineProps({
+	appliance: {
+		type: Object,
+		required: true,
+	}
+});
 const store = useStore();
 const disabled = ref(false);
 const addToReservation = (appliance) => {
