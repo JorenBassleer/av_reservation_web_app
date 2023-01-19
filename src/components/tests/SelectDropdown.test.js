@@ -12,10 +12,9 @@ describe('SelectDropdown.vue', () => {
     });
   });
   it('Emit row id with prop.type', (done) => {
-    wrapper.find('select').trigger('change');
+    wrapper.vm.clickedOnRow(1); 
     wrapper.vm.$nextTick(() => {
-      wrapper.vm.clickedOnRow(1);
-      expect(wrapper.emitted()[0]).toEqual([
+      expect(wrapper.emitted().clickedOnRow[0]).toEqual([
         {
           rowId: 1,
           type: 'typeName',

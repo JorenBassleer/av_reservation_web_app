@@ -2,7 +2,9 @@
         <select @change="clickedOnRow(rowId)" v-model="rowId">
         <option v-for="row in data" 
                     :value="row.id"
-                    :key="row.id">{{ row.name }}</option>
+                    :key="row.id"
+        >
+					{{ row.name }}</option>
     </select>
 </template>
 <script>
