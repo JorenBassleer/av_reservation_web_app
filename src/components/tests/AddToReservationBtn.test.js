@@ -28,14 +28,6 @@ describe('AddToReservationBtn.vue', () => {
       mutations: { pushApplianceInReservation: mockedIncFn }
     });
   });
-  // it('Uses props', async () => {
-  //   wrapper = mount(AddToReservationBtn, {
-  //     global: { plugins: [store] },
-  //     props: { appliance: initAppliance }
-  //   });
-  //   // Assert
-  //   expect(wrapper.html()).toContain(initAppliance);
-  // });
   it('calls pushApplianceInReservation store mutation', async () => {
     wrapper = mount(AddToReservationBtn, {
       global: { plugins: [store] },
