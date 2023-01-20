@@ -5,6 +5,7 @@ import SelectDropdown from '../SelectDropdown.vue';
 describe('SelectDropdown.vue', () => {
   let wrapper;
   beforeEach(() => {
+    // Arrange
     wrapper = shallowMount(SelectDropdown, {
       props: {
         type: 'typeName',
@@ -12,8 +13,10 @@ describe('SelectDropdown.vue', () => {
     });
   });
   it('Emit row id with prop.type', (done) => {
+    // Act
     wrapper.vm.clickedOnRow(1);
     wrapper.vm.$nextTick(() => {
+    // Assert
       expect(wrapper.emitted().clickedOnRow[0]).toEqual([
         {
           rowId: 1,

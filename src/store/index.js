@@ -28,7 +28,6 @@ export default createStore({
     getTotalAmountOfAppliancesInReservation(state, getters) {
       let totalAmount = 0;
       for(let i = 0; i < state.reservation.amounts.length; i++) {
-        console.log(state.reservation.amounts[i] + " " + totalAmount);
         totalAmount += state.reservation.amounts[i];
       }
 
