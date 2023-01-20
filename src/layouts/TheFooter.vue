@@ -8,13 +8,6 @@
         </div>
     </div>
 </template>
-<script>
-export default {
-    setup() {
-        
-    },
-}
-</script>
 <style scoped>
 .footer-container {
     display: flex;

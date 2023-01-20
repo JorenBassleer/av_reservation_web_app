@@ -72,7 +72,7 @@
         </form>
     </div>
 </template>
-<script>
+<script setup>
 import { computed, ref } from 'vue';    
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
@@ -81,67 +81,60 @@ import axios from 'axios';
 import baseAPIUrl from '../../composables/globals.js';
 // import PostAppliance from '../../composables/appliances/PostAppliance.js';
 
-export default {
-    components: { SelectDropdown },
-    setup() {
-        const store = useStore();
-        const router = useRouter();
-        const appliance = ref({
-            name: '',
-            details: '',
-            brand_id: '',
-            type_id: '',
-            storage: '0',
-            manual_url: '',
-            img_url: ''
-        });
-        const isProcessingReq = ref(false);
-        const error = ref(null);
-        
-        const brands = computed(() => store.state.brands);
-        const types = computed(() => store.state.types);
-        
-        const clickedOnRow = ({rowId, type}) => {
-            if(checkIfIdIsBrands(type)) {
-                appliance.value.brand_id = rowId;
-            }
-            // Id = type_id
-            else {
-                appliance.value.type_id = rowId;
-            }
-        }
-        const checkIfIdIsBrands = (type) => {
-            return type == 'brands' ? true : false;
-        }
+const store = useStore();
+const router = useRouter();
+const appliance = ref({
+    name: '',
+    details: '',
+    brand_id: '',
+    type_id: '',
+    storage: '0',
+    manual_url: '',
+    img_url: ''
+});
+const isProcessingReq = ref(false);
+const error = ref(null);
 
-        const handleSubmit = async () => {
-            isProcessingReq.value = true;
-            let newAppliance;
-            await axios.post(baseAPIUrl + 'appliances', appliance.value)
-            .then(async (response) => {
-                newAppliance = response.data.data;
-                await store.dispatch('getAppliances');
-                router.push({name: 'view-appliance', params: {id: newAppliance.id}});
-            })
-            .catch((err) => {
-                error.value = err;
-            });
-        }
-            // const { newAppliance, newError, load } = PostAppliance();
+const brands = computed(() => store.state.brands);
+const types = computed(() => store.state.types);
 
-            // await load(appliance.value);
-
-            // if(!newError) {
-            //     // dispatch
-            //     store.dispatch('getAppliances');
-            //     //router push
-            //     router.push({name: 'view-appliance', params: {id: newAppliance.id}});
-            // }
-            // error.value = newError.value;
-        return { appliance, brands, types, isProcessingReq, error,
-                handleSubmit, clickedOnRow }
-    },
+const clickedOnRow = ({rowId, type}) => {
+	if(checkIfIdIsBrands(type)) {
+			appliance.value.brand_id = rowId;
+	}
+	// Id = type_id
+	else {
+			appliance.value.type_id = rowId;
+	}
 }
+const checkIfIdIsBrands = (type) => {
+	return type == 'brands' ? true : false;
+}
+
+const handleSubmit = async () => {
+	isProcessingReq.value = true;
+	let newAppliance;
+	await axios.post(baseAPIUrl + 'appliances', appliance.value)
+	.then(async (response) => {
+			newAppliance = response.data.data;
+			await store.dispatch('getAppliances');
+			router.push({name: 'view-appliance', params: {id: newAppliance.id}});
+	})
+	.catch((err) => {
+			error.value = err;
+	});
+}
+    // const { newAppliance, newError, load } = PostAppliance();
+
+    // await load(appliance.value);
+
+    // if(!newError) {
+    //     // dispatch
+    //     store.dispatch('getAppliances');
+    //     //router push
+    //     router.push({name: 'view-appliance', params: {id: newAppliance.id}});
+    // }
+    // error.value = newError.value;
 </script>
 <style scoped>
 input, textarea {

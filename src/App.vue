@@ -9,28 +9,23 @@
   </router-view>
   <TheFooter />
 </template>
-<script>
+<script setup>
 import { onBeforeMount } from '@vue/runtime-core';
 import store from './store/index.js';
 import TheNavBar from './layouts/TheNavBar.vue';
 import TheFooter from './layouts/TheFooter.vue';
 
-export default {
-  components: { TheNavBar, TheFooter },
-  setup() {
-    onBeforeMount(() => {
-        store.dispatch('getAppliances')
-            .then(_ =>{})
-            .catch((error) => console.log(error));
-        store.dispatch('getBrands')
-            .then(_ =>{})
-            .catch((error) => console.log(error));
-        store.dispatch('getTypes')
-            .then(_ =>{})
-            .catch((error) => console.log(error));
-    })
-  },
-}
+onBeforeMount(() => {
+  store.dispatch('getAppliances')
+    .then(_ =>{})
+    .catch((error) => console.log(error));
+  store.dispatch('getBrands')
+    .then(_ =>{})
+    .catch((error) => console.log(error));
+  store.dispatch('getTypes')
+    .then(_ =>{})
+    .catch((error) => console.log(error));
+});
 </script>
 <style>
 #app {

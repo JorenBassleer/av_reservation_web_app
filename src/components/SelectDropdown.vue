@@ -7,21 +7,26 @@
 					{{ row.name }}</option>
     </select>
 </template>
-<script>
-import {  ref } from 'vue';
+<script setup>
+import { ref, defineProps, defineEmits } from 'vue';
 
-export default {
-    props: ["data", "type"],
-    setup(props, {emit}) {
-        const rowId = ref(0);
-        const clickedOnRow = (rowId) => {
-            emit('clickedOnRow', {
-                rowId: rowId,
-                type: props.type
-            });
-        }
-        return { rowId, clickedOnRow }
-    },
+const props = defineProps({		
+	data: {
+		type: [Object, Array],
+		required: true,
+	},
+	type: {
+		type: [Object, String],
+		required: true,
+	},
+});
+const emit = defineEmits(['clickedOnRow']);
+const rowId = ref(0);
+const clickedOnRow = (rowId) => {
+	emit('clickedOnRow', {
+			rowId: rowId,
+			type: props.type
+	});
 }
 </script>
 <style scoped>

@@ -5,18 +5,12 @@
         <router-link to="/mijn-reservatie">MIJN RESERVATIE <span id="appliances-number">{{amountOfAppliances}}</span></router-link>
     </nav>
 </template>
-<script>
+<script setup>
 import { useStore } from 'vuex';
 import { computed } from 'vue';  
-export default {
-    setup() {
-        const store = useStore();
+const store = useStore();
 
-        const amountOfAppliances = computed(() => store.getters.getTotalAmountOfAppliancesInReservation);
-        
-        return { amountOfAppliances }
-    },
-}
+const amountOfAppliances = computed(() => store.getters.getTotalAmountOfAppliancesInReservation); 
 </script>
 <style scoped>
 nav {
