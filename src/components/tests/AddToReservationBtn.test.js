@@ -1,12 +1,13 @@
 import { describe, it, vi } from "vitest";
 import { createStore } from 'vuex';
+import store from '../../store';
 import { mount } from '@vue/test-utils'
 import AddToReservationBtn from '../AddToReservationBtn.vue';
 
 describe('AddToReservationBtn.vue', () => {
   // Arrange
   let wrapper;
-  let store;
+  let mockStore;
   let mockedIncFn;
   const initReservation = {
     appliances: [],
@@ -23,14 +24,14 @@ describe('AddToReservationBtn.vue', () => {
   }
   beforeEach(() => {
     mockedIncFn = vi.fn()
-    store = createStore({
+    mockStore = createStore({
       state: { initReservation },
       mutations: { pushApplianceInReservation: mockedIncFn }
     });
   });
   it('calls pushApplianceInReservation store mutation', async () => {
     wrapper = mount(AddToReservationBtn, {
-      global: { plugins: [store] },
+      global: { plugins: [mockStore] },
       props: { appliance: initAppliance }
     });
     // Act
@@ -39,7 +40,7 @@ describe('AddToReservationBtn.vue', () => {
   });
   it('addToReservation func gets called', () => {
     wrapper = mount(AddToReservationBtn, {
-      global: { plugins: [store] },
+      global: { plugins: [mockStore] },
       props: { appliance: initAppliance }
     });
     // Act
