@@ -29,7 +29,6 @@
 </template>
 <script setup>
 import { defineProps } from 'vue';
-import { useRouter } from 'vue-router';
 import AddToCart from '../AddToReservationBtn.vue';
 
 const props = defineProps({
@@ -38,7 +37,6 @@ const props = defineProps({
 			required: true,
 		},
 });
-const router = useRouter();
 </script>
 <style scoped>
 a, h2 {

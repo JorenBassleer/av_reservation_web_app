@@ -3,9 +3,14 @@
  */
 import { mount, RouterLinkStub  } from "@vue/test-utils";
 import { describe, it } from "vitest";
+import { createStore } from 'vuex';
 import Appliance from "../appliances/appliance.vue";
 
 describe("Appliance.vue", () => {
+  let store;
+  beforeEach(() => {
+    store = createStore();
+  });
   it("Check link to appliance", async () => {
 		// Arrange
     const wrapper = mount(Appliance, {
@@ -22,6 +27,7 @@ describe("Appliance.vue", () => {
         },
       },
       global: {
+        plugins: [store],
 				stubs: {
           RouterLink: RouterLinkStub,
         },
