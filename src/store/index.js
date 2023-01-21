@@ -58,28 +58,32 @@ export default createStore({
     }
   },
   actions: {
-    getAppliances ({commit}) {
+    async getAppliances ({ commit }) {
         // Fetch all appliances and add to state
-        axios.get(baseAPIUrl + 'appliances')
-        .then((response) => {
-            commit('updateAppliances', response.data.data[0]);
-        })
-        .catch((error) => console.log(error));
+        try {
+          const response = await axios.get(baseAPIUrl + 'appliances');
+          commit('updateAppliances', response.data.data[0]);
+        } catch (error) {
+          console.log(error);
+        }
     },
-    getBrands({commit}) {
+    async getBrands({ commit }) {
         // Fetch all brands and add to state
-        axios.get(baseAPIUrl + 'brands')
-        .then((response) => {
-            commit('updateBrands', response.data.data[0]);
-        })
-        .catch((error) => console.log(error));
+        try {
+          const response = await axios.get(baseAPIUrl + 'brands');
+          commit('updateBrands', response.data.data[0]);
+        } catch (error) {
+          console.log(error);
+        }
     },
-    getTypes({commit}) {
-        axios.get(baseAPIUrl + 'types')
-        .then((response) => {
-            commit('updateTypes', response.data.data[0]);
-        })
-        .catch((error) => console.log(error));
+    async getTypes({ commit }) {
+        // Fetch all types and add to state
+        try {
+          const response = await axios.get(baseAPIUrl + 'types');
+          commit('updateTypes', response.data.data[0]);
+        } catch (error) {
+          console.log(error);
+        };
     }
   },
   modules: {
