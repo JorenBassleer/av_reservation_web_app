@@ -1,46 +1,35 @@
 /**
  * @vitest-environment
  */
-import { mount } from "@vue/test-utils";
-import { describe, it, vi } from "vitest";
-import * as VueRouter from "vue-router";
+import { mount, RouterLinkStub  } from "@vue/test-utils";
+import { describe, it } from "vitest";
 import Appliance from "../appliances/appliance.vue";
 
 describe("Appliance.vue", () => {
-  // vi.mock("vue-router", () => ({
-  //   useRoute: vi.fn(),
-  //   useRouter: vi.fn(() => ({
-  //     push: () => {},
-  //   })),
-  // }));
-  it("Redirects user to appliance page", async () => {
+  it("Check link to appliance", async () => {
 		// Arrange
-    const useRouteSpy = vi.spyOn(VueRouter, 'useRoute');
-    const initAppliance = {
-      id: '1561',
-      name: 'test-appliance',
-      brand: {
-        name: 'test-brand',
-      },
-      type: {
-        name: 'test-type',
-      },
-    };
     const wrapper = mount(Appliance, {
       props: {
-        appliance: initAppliance,
+        appliance: {
+          id: '1561',
+          name: 'test-appliance',
+          brand: {
+            name: 'test-brand',
+          },
+          type: {
+            name: 'test-type',
+          },
+        },
       },
       global: {
-				stubs: ['router-link', 'router-view'],
+				stubs: {
+          RouterLink: RouterLinkStub,
+        },
       },
     });
     // Act
-		const useRouteMock = useRouteSpy.mockImplementationOnce({ query: 'query' });
-		// const useRouteMock = spy.mockImplementationOnce({ params: { id: '1561' }});
-    await wrapper.find('div').trigger('click');
-		// const spy = vi.spyOn(wrapper.vm,'useRouter');
     // Assert
-    expect(useRouteMock).toHaveBeenCalledTimes(1);
-    expect(useRouteMock).toHaveBeenCalledWith(`/apparaten/${initAppliance.id}`);
+    expect(wrapper.findComponent(RouterLinkStub).props().to.name).toBe('view-appliance');
+    expect(wrapper.findComponent(RouterLinkStub).props().to.params.id).toBe('1561');
   });
 });
