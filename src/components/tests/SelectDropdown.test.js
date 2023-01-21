@@ -1,5 +1,4 @@
 import { shallowMount } from '@vue/test-utils';
-import { describe, it } from "vitest";
 import SelectDropdown from '../SelectDropdown.vue';
 
 describe('SelectDropdown.vue', () => {
@@ -8,6 +7,7 @@ describe('SelectDropdown.vue', () => {
     // Arrange
     wrapper = shallowMount(SelectDropdown, {
       props: {
+        data: [],
         type: 'typeName',
       },
     });

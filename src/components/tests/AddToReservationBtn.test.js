@@ -1,6 +1,4 @@
-import { describe, it, vi } from "vitest";
 import { createStore } from 'vuex';
-import store from '../../store';
 import { mount } from '@vue/test-utils'
 import AddToReservationBtn from '../AddToReservationBtn.vue';
 

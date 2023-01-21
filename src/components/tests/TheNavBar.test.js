@@ -2,7 +2,6 @@
  * @vitest-environment
  */
 import { mount, RouterLinkStub  } from '@vue/test-utils';
-import { describe, it } from 'vitest';
 import { createStore } from 'vuex';
 import TheNavBar from '../../layouts/TheNavBar.vue';
 
