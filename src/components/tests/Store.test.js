@@ -2,9 +2,9 @@ import store from '../../store';
 import axios from 'axios';
 import baseAPIUrl from '../../composables/globals.js';
 import { vi } from 'vitest';
-import { flushPromises } from '@vue/test-utils';
 
 describe('Vuex store', () => {
+  // MUTATIONS
   it('mutation pushApplianceInReservation', () => {
     // Arrange
     const initAppliance = {
@@ -22,6 +22,11 @@ describe('Vuex store', () => {
     // Assert
     expect(store.state.reservation.appliances).toHaveLength(1);
     expect(store.state.reservation.amounts).toHaveLength(1);
+    expect(store.state.reservation.appliances).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining(initAppliance)
+      ])
+    );
   });
   it('mutation updateAppliances', () => {
     // Arrange
@@ -41,6 +46,11 @@ describe('Vuex store', () => {
     store.commit('updateAppliances', initAppliances);
     // Assert
     expect(store.state.appliances).toHaveLength(1);
+    expect(store.state.appliances).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining(initAppliance)
+      ])
+    );
   });
   it('mutation updateBrands', () => {
     // Arrange
@@ -54,6 +64,11 @@ describe('Vuex store', () => {
     store.commit('updateBrands', initBrands);
     // Assert
     expect(store.state.brands).toHaveLength(1);
+    expect(store.state.brands).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining(initBrand)
+      ])
+    );
   });
   it('mutation updateTypes', () => {
     // Arrange
@@ -66,8 +81,14 @@ describe('Vuex store', () => {
     // Act
     store.commit('updateTypes', initTypes);
     // Assert
-    expect(store.state.brands).toHaveLength(1);
+    expect(store.state.types).toHaveLength(1);
+    expect(store.state.types).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining(initType)
+      ])
+    );
   });
+  // ACTIONS
   it('action getAppliances', async () => {
     // Arrange
     const mockAppliancesList = {
@@ -119,4 +140,10 @@ describe('Vuex store', () => {
     expect(axiosSpy).toHaveBeenCalledTimes(1);
     expect(axiosSpy).toHaveBeenCalledWith(baseAPIUrl + 'types');
   });
+  // GETTERS
+  it('getter appliances');
+  it('getter brands');
+  it('getter types');
+  it('getter reservation');
+  it('getter getTotalAmountOfAppliancesInReservation');
 });
