@@ -141,9 +141,88 @@ describe('Vuex store', () => {
     expect(axiosSpy).toHaveBeenCalledWith(baseAPIUrl + 'types');
   });
   // GETTERS
-  it('getter appliances');
-  it('getter brands');
-  it('getter types');
-  it('getter reservation');
-  it('getter getTotalAmountOfAppliancesInReservation');
+  it('getter appliances', () => {
+    // Arrange
+    const initAppliances = [
+      { id: 1, name: 'appliance-name-1' },
+      { id: 2, name: 'appliance-name-2' },
+      { id: 3, name: 'appliance-name-3' },
+      { id: 4, name: 'appliance-name-4' },
+    ];
+    store.state.appliances = initAppliances;
+    // Act
+    const result = store.getters.appliances;
+    // Assert
+    expect(result).to.deep.equal(initAppliances);
+
+  });
+  it('getter brands', () => {
+    // Arrange
+    const initBrands = [
+      { id: 1, name: 'brand-name-1' },
+      { id: 2, name: 'brand-name-2' },
+      { id: 3, name: 'brand-name-3' },
+      { id: 4, name: 'brand-name-4' },
+    ];
+    store.state.brands = initBrands;
+    // Act
+    const result = store.getters.brands;
+    // Assert
+    expect(result).to.deep.equal(initBrands);
+
+  });
+  it('getter types', () => {
+    // Arrange
+    const initTypes = [
+      { id: 1, name: 'types-name-1' },
+      { id: 2, name: 'types-name-2' },
+      { id: 3, name: 'types-name-3' },
+      { id: 4, name: 'types-name-4' },
+    ];
+    store.state.types = initTypes;
+    // Act
+    const result = store.getters.types;
+    // Assert
+    expect(result).to.deep.equal(initTypes);
+  });
+  it('getter reservation', () => {
+    // Arrange
+    const initReservation = {
+      appliances: [
+        { id: 1, name: 'appliance-name-1' },
+        { id: 2, name: 'appliance-name-2' },
+        { id: 3, name: 'appliance-name-3' },
+      ],
+      amounts: [
+        5,
+        2,
+        3,
+      ],
+    };
+    store.state.reservation = initReservation;
+    // Act
+    const result = store.getters.reservation;
+    // Assert
+    expect(result).to.deep.equal(initReservation);
+  });
+  it('getter getTotalAmountOfAppliancesInReservation', () => {
+    // Arrange
+    const initReservation = {
+      appliances: [
+        { id: 1, name: 'appliance-name-1' },
+        { id: 2, name: 'appliance-name-2' },
+        { id: 3, name: 'appliance-name-3' },
+      ],
+      amounts: [
+        5,
+        2,
+        3,
+      ],
+    };
+    store.state.reservation = initReservation;
+    // Act
+    const result = store.getters.getTotalAmountOfAppliancesInReservation;
+    // Assert
+    expect(result).toBe(10);
+  });
 });
