@@ -44,7 +44,7 @@
             <SelectDropdown
               :data="brands"
               :type="'brands'"
-              @clickedOnRow="clickedOnRow"
+              @clicked-on-row="clickedOnRow"
             />
           </div>
         </div>
@@ -56,7 +56,7 @@
             <SelectDropdown
               :data="types"
               :type="'types'"
-              @clickedOnRow="clickedOnRow"
+              @clicked-on-row="clickedOnRow"
             />
           </div>
         </div>

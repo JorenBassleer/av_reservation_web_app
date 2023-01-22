@@ -26,13 +26,9 @@ describe('Appliance.vue', () => {
       },
     });
   });
-  it('Test home router-link', () => {
+  it('Test router-links', () => {
     expect(wrapper.findAllComponents(RouterLinkStub)[0].props().to).toBe('/');
-  });
-  it('Test apparaten router-link', () => {
     expect(wrapper.findAllComponents(RouterLinkStub)[1].props().to).toBe('/apparaten');
-  });
-  it('Test mijn reservatie router-link', () => {
     expect(wrapper.findAllComponents(RouterLinkStub)[2].props().to).toBe('/mijn-reservatie');
   });
   it('#appliances-number has total amount of appliances in reservation', async () => {
