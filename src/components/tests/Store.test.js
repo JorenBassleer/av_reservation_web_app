@@ -1,7 +1,9 @@
-import store from '../../store';
 import axios from 'axios';
-import baseAPIUrl from '../../composables/globals.js';
-import { vi } from 'vitest';
+import {
+  expect, describe, it, vi,
+} from 'vitest';
+import store from '../../store';
+import baseAPIUrl from '../../composables/globals';
 
 describe('Vuex store', () => {
   // MUTATIONS
@@ -23,9 +25,7 @@ describe('Vuex store', () => {
     expect(store.state.reservation.appliances).toHaveLength(1);
     expect(store.state.reservation.amounts).toHaveLength(1);
     expect(store.state.reservation.appliances).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining(initAppliance)
-      ])
+      expect.arrayContaining([expect.objectContaining(initAppliance)]),
     );
   });
   it('mutation updateAppliances', () => {
@@ -47,9 +47,7 @@ describe('Vuex store', () => {
     // Assert
     expect(store.state.appliances).toHaveLength(1);
     expect(store.state.appliances).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining(initAppliance)
-      ])
+      expect.arrayContaining([expect.objectContaining(initAppliance)]),
     );
   });
   it('mutation updateBrands', () => {
@@ -65,9 +63,7 @@ describe('Vuex store', () => {
     // Assert
     expect(store.state.brands).toHaveLength(1);
     expect(store.state.brands).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining(initBrand)
-      ])
+      expect.arrayContaining([expect.objectContaining(initBrand)]),
     );
   });
   it('mutation updateTypes', () => {
@@ -83,28 +79,26 @@ describe('Vuex store', () => {
     // Assert
     expect(store.state.types).toHaveLength(1);
     expect(store.state.types).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining(initType)
-      ])
+      expect.arrayContaining([expect.objectContaining(initType)]),
     );
   });
   // ACTIONS
   it('action getAppliances', async () => {
     // Arrange
     const mockAppliancesList = {
-      data:{
+      data: {
         data: [
-          { id: 1, name: 'test-appliance-1'},
-          { id: 2, name: 'test-appliance-2'},
-        ]
-      }
+          { id: 1, name: 'test-appliance-1' },
+          { id: 2, name: 'test-appliance-2' },
+        ],
+      },
     };
     vi.spyOn(axios, 'get').mockReturnValue(mockAppliancesList);
     // Act
     await store.dispatch('getAppliances');
     // Assert
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(baseAPIUrl + 'appliances');
+    expect(axios.get).toHaveBeenCalledWith(`${baseAPIUrl}appliances`);
   });
   it('action getBrands', async () => {
     // Arrange
@@ -112,7 +106,7 @@ describe('Vuex store', () => {
       data: {
         data: [
           { id: 1, name: 'brand-name-1' },
-          { id: 2, name: 'brand-name-2' }
+          { id: 2, name: 'brand-name-2' },
         ],
       },
     };
@@ -121,7 +115,7 @@ describe('Vuex store', () => {
     await store.dispatch('getBrands');
     // Assert
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(baseAPIUrl + 'brands');
+    expect(axios.get).toHaveBeenCalledWith(`${baseAPIUrl}brands`);
   });
   it('action getTypes', async () => {
     // Arrange
@@ -138,7 +132,7 @@ describe('Vuex store', () => {
     await store.dispatch('getTypes');
     // Assert
     expect(axiosSpy).toHaveBeenCalledTimes(1);
-    expect(axiosSpy).toHaveBeenCalledWith(baseAPIUrl + 'types');
+    expect(axiosSpy).toHaveBeenCalledWith(`${baseAPIUrl}types`);
   });
   // GETTERS
   it('getter appliances', () => {
@@ -154,7 +148,6 @@ describe('Vuex store', () => {
     const result = store.getters.appliances;
     // Assert
     expect(result).to.deep.equal(initAppliances);
-
   });
   it('getter brands', () => {
     // Arrange
@@ -169,7 +162,6 @@ describe('Vuex store', () => {
     const result = store.getters.brands;
     // Assert
     expect(result).to.deep.equal(initBrands);
-
   });
   it('getter types', () => {
     // Arrange

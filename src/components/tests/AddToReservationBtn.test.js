@@ -1,5 +1,8 @@
 import { createStore } from 'vuex';
-import { mount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils';
+import {
+  expect, describe, it, beforeEach, vi,
+} from 'vitest';
 import AddToReservationBtn from '../AddToReservationBtn.vue';
 
 describe('AddToReservationBtn.vue', () => {
@@ -19,18 +22,18 @@ describe('AddToReservationBtn.vue', () => {
     type: {
       name: 'test-type',
     },
-  }
+  };
   beforeEach(() => {
-    mockedIncFn = vi.fn()
+    mockedIncFn = vi.fn();
     mockStore = createStore({
       state: { initReservation },
-      mutations: { pushApplianceInReservation: mockedIncFn }
+      mutations: { pushApplianceInReservation: mockedIncFn },
     });
   });
   it('calls pushApplianceInReservation store mutation', async () => {
     wrapper = mount(AddToReservationBtn, {
       global: { plugins: [mockStore] },
-      props: { appliance: initAppliance }
+      props: { appliance: initAppliance },
     });
     // Act
     wrapper.find('button').trigger('click');
@@ -39,10 +42,10 @@ describe('AddToReservationBtn.vue', () => {
   it('addToReservation func gets called', () => {
     wrapper = mount(AddToReservationBtn, {
       global: { plugins: [mockStore] },
-      props: { appliance: initAppliance }
+      props: { appliance: initAppliance },
     });
     // Act
-    const spy = vi.spyOn(wrapper.vm, 'addToReservation')
+    const spy = vi.spyOn(wrapper.vm, 'addToReservation');
     wrapper.find('button').trigger('click');
     // Assert
     expect(spy).toHaveBeenCalled();

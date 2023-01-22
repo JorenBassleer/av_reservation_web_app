@@ -1,9 +1,11 @@
 /**
  * @vitest-environment
  */
-import { mount, RouterLinkStub, shallowMount  } from '@vue/test-utils';
+import { mount, RouterLinkStub } from '@vue/test-utils';
 import { createStore } from 'vuex';
-import { vi,  } from 'vitest';
+import {
+  expect, describe, it, beforeEach,
+} from 'vitest';
 import TheNavBar from '../../layouts/TheNavBar.vue';
 
 describe('Appliance.vue', () => {
@@ -12,8 +14,8 @@ describe('Appliance.vue', () => {
   beforeEach(() => {
     store = createStore({
       getters: {
-        getTotalAmountOfAppliancesInReservation() { return 60 }
-      }
+        getTotalAmountOfAppliancesInReservation() { return 60; },
+      },
     });
     wrapper = mount(TheNavBar, {
       global: {
@@ -35,12 +37,6 @@ describe('Appliance.vue', () => {
   });
   it('#appliances-number has total amount of appliances in reservation', async () => {
     // Arrange
-    const wrapper = mount(TheNavBar, {
-      global: {
-        plugins: [store],
-        stubs: { RouterLink: RouterLinkStub },
-      },
-    });
     // Act
     const applianceNumber = parseInt(wrapper.find('#appliances-number').text(), 10);
     // 60 like we defined in our mock store

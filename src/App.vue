@@ -1,29 +1,32 @@
-<template> 
+<template>
   <TheNavBar />
   <router-view v-slot="{ Component, route }">
-    <transition name="route" mode="out-in">
+    <transition
+      name="route"
+      mode="out-in"
+    >
       <div :key="route.name">
-        <component :is="Component"></component>
+        <component :is="Component" />
       </div>
     </transition>
   </router-view>
   <TheFooter />
 </template>
 <script setup>
-import { onBeforeMount } from '@vue/runtime-core';
+import { onBeforeMount } from 'vue';
 import store from './store/index.js';
 import TheNavBar from './layouts/TheNavBar.vue';
 import TheFooter from './layouts/TheFooter.vue';
 
 onBeforeMount(() => {
   store.dispatch('getAppliances')
-    .then(_ =>{})
+    .then((_) => {})
     .catch((error) => console.log(error));
   store.dispatch('getBrands')
-    .then(_ =>{})
+    .then((_) => {})
     .catch((error) => console.log(error));
   store.dispatch('getTypes')
-    .then(_ =>{})
+    .then((_) => {})
     .catch((error) => console.log(error));
 });
 </script>

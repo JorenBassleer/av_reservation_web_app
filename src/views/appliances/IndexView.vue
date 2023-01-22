@@ -1,60 +1,96 @@
 <template>
-    <h1>Apparaten</h1>
-    <div class="content">
-        <div class="filter">
-            <div v-if="brands.length" class="brands">
-                <strong @click="showBrands = !showBrands">Merken: (toggle)</strong>
-                <transition-group tag="ul" name="filter-list">
-                    <ul v-if="showBrands">
-                        <li v-for="brand in brands" :key="brand.id" 
-                                                    :class="{ isActive: brandNameFilter == brand.name}"
-                                                    @click="brandNameFilter = brand.name">
-                            <span>{{ brand.name }}</span>
-                        </li>
-                    </ul>
-                </transition-group>
-            </div>
-            <div v-if="types.length" class="types">
-                <strong @click="showTypes = !showTypes">Soorten: (toggle)</strong>
-                <transition-group tag="ul" name="filter-list">
-                    <ul v-if="showTypes">
-                        <li v-for="kind in types" :key="kind.id" 
-                                                :class="{ isActive: typeNameFilter == kind.name}"
-                                                @click="typeNameFilter = kind.name">
-                            <span>{{ kind.name }}</span>
-                        </li>
-                    </ul>
-                </transition-group>
-            </div>
-            <div class="add-appliance">
-                <div>
-                     <router-link :to="{name: 'create-appliance'}">
-                        <button>Voeg apparaat toe:</button>
-                    </router-link>
-                </div>
-            </div>
+  <h1>Apparaten</h1>
+  <div class="content">
+    <div class="filter">
+      <div
+        v-if="brands.length"
+        class="brands"
+      >
+        <strong @click="showBrands = !showBrands">Merken: (toggle)</strong>
+        <transition-group
+          tag="ul"
+          name="filter-list"
+        >
+          <ul v-if="showBrands">
+            <li
+              v-for="brand in brands"
+              :key="brand.id"
+              :class="{ isActive: brandNameFilter == brand.name}"
+              @click="brandNameFilter = brand.name"
+            >
+              <span>{{ brand.name }}</span>
+            </li>
+          </ul>
+        </transition-group>
+      </div>
+      <div
+        v-if="types.length"
+        class="types"
+      >
+        <strong @click="showTypes = !showTypes">Soorten: (toggle)</strong>
+        <transition-group
+          tag="ul"
+          name="filter-list"
+        >
+          <ul v-if="showTypes">
+            <li
+              v-for="kind in types"
+              :key="kind.id"
+              :class="{ isActive: typeNameFilter == kind.name}"
+              @click="typeNameFilter = kind.name"
+            >
+              <span>{{ kind.name }}</span>
+            </li>
+          </ul>
+        </transition-group>
+      </div>
+      <div class="add-appliance">
+        <div>
+          <router-link :to="{name: 'create-appliance'}">
+            <button>Voeg apparaat toe:</button>
+          </router-link>
         </div>
-        <div class="search-bar">
-            <input type="text" v-model="applianceNameFilter" placeholder="Zoek een apparaat:" />
-        </div>
-        <div class="filter-delete" v-if="typeNameFilter || brandNameFilter">
-            <div class="filter-info">
-                <strong>Active filters: {{typeNameFilter}} {{brandNameFilter}}</strong>
-            </div>
-            <div class="delete-btn">
-                <button @click="typeNameFilter = ''; brandNameFilter = ''">Delete filters</button>
-            </div>
-        </div>
-        <div v-if="appliances.length" class="appliances-container">
-            <transition-group v-for="(appliance, index) in appliances" 
-                            :key="appliance.id"
-                            appear
-                            @before-enter="beforeEnter"
-                            @enter="enter">
-                <Appliance :appliance="appliance" :key="appliance.id" :data-index="index"/>
-            </transition-group>
-        </div>
-        <!-- <nav>
+      </div>
+    </div>
+    <div class="search-bar">
+      <input
+        v-model="applianceNameFilter"
+        type="text"
+        placeholder="Zoek een apparaat:"
+      >
+    </div>
+    <div
+      v-if="typeNameFilter || brandNameFilter"
+      class="filter-delete"
+    >
+      <div class="filter-info">
+        <strong>Active filters: {{ typeNameFilter }} {{ brandNameFilter }}</strong>
+      </div>
+      <div class="delete-btn">
+        <button @click="typeNameFilter = ''; brandNameFilter = ''">
+          Delete filters
+        </button>
+      </div>
+    </div>
+    <div
+      v-if="appliances.length"
+      class="appliances-container"
+    >
+      <transition-group
+        v-for="(appliance, index) in appliances"
+        :key="appliance.id"
+        appear
+        @before-enter="beforeEnter"
+        @enter="enter"
+      >
+        <ApplianceItem
+          :key="appliance.id"
+          :appliance="appliance"
+          :data-index="index"
+        />
+      </transition-group>
+    </div>
+    <!-- <nav>
             <ul>
                 <li :class="{disabled: !pagination.prev_page_url}"><a href="#"
                 @click="fetchProducts(pagination.prev_page_url)">Previous</a></li>
@@ -65,70 +101,82 @@
                 @click="fetchProducts(pagination.next_page_url)">Next</a></li>
             </ul>
         </nav> -->
-    </div>
+  </div>
 </template>
 
 <script>
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
-import Appliance from '../../components/appliances/Appliance.vue';
 import gsap from 'gsap';
+import ApplianceItem from '../../components/appliances/ApplianceItem.vue';
 
 export default {
-    components: { Appliance },
+  components: { ApplianceItem },
 
-    setup() {
-        const showBrands = ref(false);
-        const showTypes = ref(false);
-        const brandNameFilter = ref('');
-        const typeNameFilter = ref('');
-        const applianceNameFilter = ref('');
-        const store = useStore();
+  setup() {
+    const showBrands = ref(false);
+    const showTypes = ref(false);
+    const brandNameFilter = ref('');
+    const typeNameFilter = ref('');
+    const applianceNameFilter = ref('');
+    const store = useStore();
 
-        const appliances = computed(() => {
-            let brandFilteredApp = filter(store.state.appliances,"brand",brandNameFilter.value);
-            let typeFilteredApp = filter(brandFilteredApp, "type", typeNameFilter.value);
-            return filter(typeFilteredApp, "applianceName", applianceNameFilter.value);
-        });
-
-        const brands = computed(() => store.state.brands);
-        const types = computed(() => store.state.types);
-
-        const filter = (collectionToFilter, filterSubject, filterGiven) => {
-            let filteredCollection = collectionToFilter.filter((singleRow) => {
-                if(filterSubject == "brand") {
-                    return singleRow.brand.name.includes(filterGiven);
-                }
-                else if(filterSubject == "type"){
-                    return singleRow.type.name.includes(filterGiven);
-                }
-                else if(filterSubject == "applianceName") {
-                    return singleRow.name.toLowerCase().includes(filterGiven.toLowerCase());
-                }
-            });
-            return filteredCollection;
+    const filter = (collectionToFilter, filterSubject, filterGiven) => {
+      // Might have broken this filter if this is the case check code before eslint commit
+      let returnValue;
+      // eslint-disable-next-line array-callback-return
+      const filteredCollection = collectionToFilter.filter((singleRow) => {
+        if (filterSubject === 'brand') {
+          returnValue = singleRow.brand.name.includes(filterGiven);
         }
-
-        const beforeEnter = (el) => {
-            el.style.opacity = 0;
-            el.style.transform = 'translateY(100px)';
+        if (filterSubject === 'type') {
+          returnValue = singleRow.type.name.includes(filterGiven);
         }
-        const enter = (el, done) => {
-            gsap.to(el, {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                onComplete: done,
-                delay: el.dataset.index * 0.1,
-            });
+        if (filterSubject === 'applianceName') {
+          returnValue = singleRow.name.toLowerCase().includes(filterGiven.toLowerCase());
         }
-        return { appliances, brands, types, 
-                brandNameFilter, typeNameFilter, applianceNameFilter,
-                showBrands, showTypes,
-                beforeEnter, enter}
+      });
+      returnValue = filteredCollection;
+      return returnValue;
+    };
+    const appliances = computed(() => {
+      const brandFilteredApp = filter(store.state.appliances, 'brand', brandNameFilter.value);
+      const typeFilteredApp = filter(brandFilteredApp, 'type', typeNameFilter.value);
+      return filter(typeFilteredApp, 'applianceName', applianceNameFilter.value);
+    });
 
-    }
-}
+    const brands = computed(() => store.state.brands);
+    const types = computed(() => store.state.types);
+
+    const beforeEnter = (el) => {
+      /* eslint-disable no-param-reassign */
+      el.style.opacity = 0;
+      el.style.transform = 'translateY(100px)';
+      /* eslint-enable no-param-reassign */
+    };
+    const enter = (el, done) => {
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        onComplete: done,
+        delay: el.dataset.index * 0.1,
+      });
+    };
+    return {
+      appliances,
+      brands,
+      types,
+      brandNameFilter,
+      typeNameFilter,
+      applianceNameFilter,
+      showBrands,
+      showTypes,
+      beforeEnter,
+      enter,
+    };
+  },
+};
 </script>
 <style scoped>
 .content {

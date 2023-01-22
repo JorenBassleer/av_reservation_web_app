@@ -1,12 +1,12 @@
 <template>
-    <div class="create-appliance-content">
-        <div class="create-appliance-header">
-            <h1>Voeg een apparaat toe:</h1>
-        </div>
-        <div class="create-appliance-form">
-            <ApplianceForm />
-        </div>
+  <div class="create-appliance-content">
+    <div class="create-appliance-header">
+      <h1>Voeg een apparaat toe:</h1>
     </div>
+    <div class="create-appliance-form">
+      <ApplianceForm />
+    </div>
+  </div>
 </template>
 <script>
 import { computed, ref } from 'vue';
@@ -14,11 +14,11 @@ import { useStore } from 'vuex';
 import ApplianceForm from '../../components/appliances/ApplianceForm.vue';
 
 export default {
-    components: { ApplianceForm },
-    setup() {
-        
-    },
-}
+  components: { ApplianceForm },
+  setup() {
+
+  },
+};
 </script>
 <style scoped>
 .create-appliance-content {

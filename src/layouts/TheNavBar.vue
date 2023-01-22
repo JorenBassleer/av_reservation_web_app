@@ -1,16 +1,23 @@
 <template>
-    <nav>
-        <router-link to="/">HOME</router-link> |
-        <router-link to="/apparaten">APPARATEN</router-link> | 
-        <router-link to="/mijn-reservatie">MIJN RESERVATIE <span id="appliances-number">{{amountOfAppliances}}</span></router-link>
-    </nav>
+  <nav>
+    <router-link to="/">
+      HOME
+    </router-link> |
+    <router-link to="/apparaten">
+      APPARATEN
+    </router-link> |
+    <router-link to="/mijn-reservatie">
+      MIJN RESERVATIE <span id="appliances-number">{{ amountOfAppliances }}</span>
+    </router-link>
+  </nav>
 </template>
 <script setup>
 import { useStore } from 'vuex';
-import { computed } from 'vue';  
+import { computed } from 'vue';
+
 const store = useStore();
 
-const amountOfAppliances = computed(() => store.getters.getTotalAmountOfAppliancesInReservation); 
+const amountOfAppliances = computed(() => store.getters.getTotalAmountOfAppliancesInReservation);
 </script>
 <style scoped>
 nav {
@@ -28,8 +35,5 @@ nav a:hover {
 }
 nav a.router-link-exact-active {
   color: white;
-}
-#appliances-number {
-
 }
 </style>

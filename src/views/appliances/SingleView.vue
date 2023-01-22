@@ -1,28 +1,34 @@
 <template>
-    <div class="content">
-        <div class="appliance-container">
-            <div class="appliance-heading">
-                <h1>{{ appliance.name }}</h1>
-                <strong>Merk: </strong> {{ appliance.brand.name }}
-                <strong>Type: </strong> {{ appliance.type.name }}
-            </div>
-            <div class="appliance-body">
-                <div class="left-side">
-                    <div class="appliance-img">
-                        <img :src="appliance.img_url" :alt="appliance.name"/>
-                    </div>
-                </div>
-                <div class="right-side">
-                    <div class="appliance-description">
-                        <strong>Beschrijving: </strong>{{ appliance.details }}
-                    </div>
-                    <div class="appliance-manual">
-                        <a href="{{appliance.manual_url}}" target="_blank">Bekijk hier de handleiding van {{appliance.name}}</a>
-                    </div>
-                </div>
-            </div>
+  <div class="content">
+    <div class="appliance-container">
+      <div class="appliance-heading">
+        <h1>{{ appliance.name }}</h1>
+        <strong>Merk: </strong> {{ appliance.brand.name }}
+        <strong>Type: </strong> {{ appliance.type.name }}
+      </div>
+      <div class="appliance-body">
+        <div class="left-side">
+          <div class="appliance-img">
+            <img
+              :src="appliance.img_url"
+              :alt="appliance.name"
+            >
+          </div>
         </div>
+        <div class="right-side">
+          <div class="appliance-description">
+            <strong>Beschrijving: </strong>{{ appliance.details }}
+          </div>
+          <div class="appliance-manual">
+            <a
+              href="{{appliance.manual_url}}"
+              target="_blank"
+            >Bekijk hier de handleiding van {{ appliance.name }}</a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 <script>
 import { useStore } from 'vuex';
@@ -30,15 +36,15 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 export default {
-    setup() {
-        const store = useStore();
-        const router = useRoute();
+  setup() {
+    const store = useStore();
+    const router = useRoute();
 
-        const appliance = computed(() => store.state.appliances.find(single => single.id == router.params.id));
+    const appliance = computed(() => store.state.appliances.find((single) => single.id == router.params.id));
 
-        return { appliance }
-    },
-}
+    return { appliance };
+  },
+};
 </script>
 <style scoped>
 .content {

@@ -1,18 +1,21 @@
 /**
  * @vitest-environment
  */
-import { mount, RouterLinkStub  } from "@vue/test-utils";
+import { mount, RouterLinkStub } from '@vue/test-utils';
 import { createStore } from 'vuex';
-import Appliance from "../appliances/appliance.vue";
+import {
+  expect, describe, it, beforeEach,
+} from 'vitest';
+import ApplianceItem from '../appliances/ApplianceItem.vue';
 
-describe("Appliance.vue", () => {
+describe('ApplianceItem.vue', () => {
   let store;
   beforeEach(() => {
     store = createStore();
   });
-  it("Check link to appliance", async () => {
-		// Arrange
-    const wrapper = mount(Appliance, {
+  it('Check link to appliance', async () => {
+    // Arrange
+    const wrapper = mount(ApplianceItem, {
       props: {
         appliance: {
           id: '1561',
@@ -27,7 +30,7 @@ describe("Appliance.vue", () => {
       },
       global: {
         plugins: [store],
-				stubs: {
+        stubs: {
           RouterLink: RouterLinkStub,
         },
       },
