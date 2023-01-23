@@ -137,7 +137,7 @@ const error = ref(null);
 const brands = computed(() => store.state.brands);
 const types = computed(() => store.state.types);
 
-const checkIfIdIsBrands = (type) => (type === 'brands');
+const checkIfIdIsBrands = (type) => type === 'brands';
 
 const clickedOnRow = ({ rowId, type }) => {
   if (checkIfIdIsBrands(type)) {
@@ -151,15 +151,17 @@ const clickedOnRow = ({ rowId, type }) => {
 const handleSubmit = async () => {
   isProcessingReq.value = true;
   let newAppliance;
-  await axios.post(`${baseAPIUrl}appliances`, appliance.value)
-    .then(async (response) => {
-      newAppliance = response.data.data;
-      await store.dispatch('getAppliances');
-      router.push({ name: 'view-appliance', params: { id: newAppliance.id } });
-    })
-    .catch((err) => {
-      error.value = err;
-    });
+  try {
+    const response = await axios.post(
+      `${baseAPIUrl}appliances`,
+      appliance.value,
+    );
+    newAppliance = response.data.data;
+    await store.dispatch('getAppliances');
+    router.push({ name: 'view-appliance', params: { id: newAppliance.id } });
+  } catch (err) {
+    error.value = err;
+  }
 };
 // const { newAppliance, newError, load } = PostAppliance();
 
@@ -174,33 +176,34 @@ const handleSubmit = async () => {
 // error.value = newError.value;
 </script>
 <style scoped>
-input, textarea {
-    border: none;
-    outline: inherit;
-    padding: 10px;
-    width: 260px;
-    border-radius: 8px;
+input,
+textarea {
+  border: none;
+  outline: inherit;
+  padding: 10px;
+  width: 260px;
+  border-radius: 8px;
 }
 .main-info {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .appliance-label {
-    margin: 10px auto;
+  margin: 10px auto;
 }
 .error {
-    color: red;
+  color: red;
 }
 button {
-    cursor: pointer;
-    font: inherit;
-    border: none;
-    outline: inherit;
-    font-size: 20px;
-    color: #e1dcce;
-    margin: 15px 0px;
-    border-radius: 8px;
-    padding: 10px;
-    background: #473f2b;
+  cursor: pointer;
+  font: inherit;
+  border: none;
+  outline: inherit;
+  font-size: 20px;
+  color: #e1dcce;
+  margin: 15px 0px;
+  border-radius: 8px;
+  padding: 10px;
+  background: #473f2b;
 }
 </style>

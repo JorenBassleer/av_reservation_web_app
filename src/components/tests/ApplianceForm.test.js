@@ -39,18 +39,15 @@ describe('ApplianceForm.vue', () => {
     // Arrange
     const [nameInput, detailsInput, imgUrlInput, storageInput] = wrapper.findAll('input');
     await nameInput.setValue(testAppliance.data.data[0].name);
-    console.log('data val: ', await nameInput.setValue(testAppliance.data.data[0].name));
     await detailsInput.setValue(testAppliance.data.data[0].details);
     await imgUrlInput.setValue(testAppliance.data.data[0].img_url);
     await storageInput.setValue(testAppliance.data.data[0].storage);
-    const axiosSpy = vi.spyOn(axios, 'post').mockReturnValue(testAppliance);
-    const fnSpy = vi.spyOn(wrapper.vm, 'handleSubmit');
+    vi.spyOn(axios, 'post').mockReturnValue(testAppliance);
     // Act
-    console.log('wrapper find: ', storageInput.text());
     await wrapper.find('button').trigger('click');
     // Assert
-    expect(fnSpy).toHaveBeenCalledTimes(1);
-    expect(axiosSpy).toHaveBeenCalledTimes(1);
+    expect(wrapper.vm.handleSubmit()).toHaveBeenCalledTimes(1);
+    expect(axios.post).toHaveBeenCalledTimes(1);
   });
   // Test failed form submit
 });
