@@ -4,11 +4,12 @@ import {
 import { mount } from '@vue/test-utils';
 import axios from 'axios';
 import { createStore } from 'vuex';
-import { useRouter } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
+import routes from '../../router/routes';
 import ApplianceForm from '../appliances/ApplianceForm.vue';
 import baseAPIUrl from '../../composables/globals';
 
-describe('ApplianceForm.vue', () => {
+describe('ApplianceForm.vue', async () => {
   const testAppliance = {
     data: {
       data: [
@@ -20,39 +21,35 @@ describe('ApplianceForm.vue', () => {
           type_id: 2,
           storage: 5,
           img_url: 'google.com',
+          manual_url: 'hihihi.com',
         },
       ],
     },
   };
   let store;
   let wrapper;
-  let router;
-  const mockRoute = {
-    name: 'view-appliance',
-    params: {
-      id: testAppliance.data.data[0].id,
-    },
-  };
-  const mockRouter = {
-    push: vi.fn(),
-  };
-  beforeEach(() => {
+  const router = createRouter({
+    history: createWebHistory(),
+    routes,
+  });
+  let getAppliancesMock;
+  beforeEach(async () => {
+    getAppliancesMock = vi.fn();
     store = createStore({
       state: {
         brands: [],
         types: [],
       },
-      actions: {
-        getAppliances: () => [],
-      },
+      actions: { getAppliances: getAppliancesMock },
     });
-    router = useRouter();
     wrapper = mount(ApplianceForm, {
       global: {
         plugins: [store, router],
         mocks: {
-          $route: mockRoute,
-          $router: mockRouter,
+          router: {
+            name: 'view-appliance',
+            params: { id: testAppliance.data.data[0].id },
+          },
         },
       },
     });
@@ -60,27 +57,30 @@ describe('ApplianceForm.vue', () => {
   // Test succcessful form submit
   it('Successful form post', async () => {
     // Arrange
-    const [nameInput, detailsInput, imgUrlInput, storageInput] = wrapper.findAll('input');
+    const [nameInput, imgUrlInput, manualUrlInput, storageInput] = wrapper.findAll('input');
+    const [detailsTextarea] = wrapper.findAll('textarea');
     await nameInput.setValue(testAppliance.data.data[0].name);
-    await detailsInput.setValue(testAppliance.data.data[0].details);
+    await detailsTextarea.setValue(testAppliance.data.data[0].details);
     await imgUrlInput.setValue(testAppliance.data.data[0].img_url);
+    await manualUrlInput.setValue(testAppliance.data.data[0].manual_url);
     await storageInput.setValue(testAppliance.data.data[0].storage);
     // Set id's since they are not inputs
     wrapper.vm.appliance.brand_id = testAppliance.data.data[0].brand_id;
     wrapper.vm.appliance.type_id = testAppliance.data.data[0].type_id;
+    wrapper.vm.appliance.id = testAppliance.data.data[0].id;
     vi.spyOn(axios, 'post').mockReturnValue(testAppliance);
-    const submitSpy = vi.spyOn(wrapper.vm, 'handleSubmit');
+    vi.spyOn(router, 'push');
     // Act
-    await wrapper.find('button').trigger('click');
+    wrapper.find('form').trigger('submit.prevent');
     wrapper.vm.$nextTick(() => {
       // Assert
-      expect(submitSpy).toHaveBeenCalledTimes(1);
-      expect(axios.post).toHaveBeenCalledWith(`${baseAPIUrl}appliances`, testAppliance);
+      expect(axios.post).toHaveBeenCalledTimes(1);
+      expect(axios.post).toHaveBeenCalledWith(`${baseAPIUrl}appliances`, testAppliance.data.data[0]);
       // Check if store dispatch getAppliances gets called
-      expect(store.actions.getAppliance()).toHaveBeenCalledTimes(1);
+      expect(getAppliancesMock).toHaveBeenCalledTimes(1);
       // Check if router get pushed
-      expect(mockRouter.push).toHaveBeenCalledTimes(1);
-      expect(mockRouter.push).toHaveBeenCalledWith({
+      expect(router.push).toHaveBeenCalledTimes(1);
+      expect(router.push).toHaveBeenCalledWith({
         name: 'view-appliance',
         params: {
           id: testAppliance.data.data[0].id,

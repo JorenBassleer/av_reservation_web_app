@@ -29,7 +29,7 @@ const emit = defineEmits(['clickedOnRow']);
 const rowId = ref(0);
 const clickedOnRow = (clickedId) => {
   emit('clickedOnRow', {
-    clickedId,
+    rowId: clickedId,
     type: props.type,
   });
 };
