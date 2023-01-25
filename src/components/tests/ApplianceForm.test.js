@@ -1,7 +1,7 @@
 import {
   describe, it, beforeEach, vi, expect,
 } from 'vitest';
-import { shallowMount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import axios from 'axios';
 import { createStore } from 'vuex';
 import { useRouter } from 'vue-router';
@@ -26,9 +26,17 @@ describe('ApplianceForm.vue', () => {
   let wrapper;
   let router;
   beforeEach(() => {
-    store = createStore();
+    store = createStore({
+      state: {
+        brands: [],
+        types: [],
+      },
+      actions: {
+        getAppliances: () => [],
+      },
+    });
     router = useRouter();
-    wrapper = shallowMount(ApplianceForm, {
+    wrapper = mount(ApplianceForm, {
       global: {
         plugins: [store, router],
       },
