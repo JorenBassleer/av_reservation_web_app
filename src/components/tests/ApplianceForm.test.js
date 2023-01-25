@@ -48,6 +48,19 @@ describe('ApplianceForm.vue', () => {
     // Assert
     expect(wrapper.vm.handleSubmit()).toHaveBeenCalledTimes(1);
     expect(axios.post).toHaveBeenCalledTimes(1);
+    // Check if store dispatch getAppliances gets called
+    // Check if router get pushed
   });
   // Test failed form submit
+  it('Fail submit sets error val', async () => {
+    // Arrange
+    expect.assertions(1);
+    vi.spyOn(axios, 'post').mockRejectedValue('failed');
+    // Act
+    await wrapper.vm.handleSubmit();
+    wrapper.vm.$nextTick(() => {
+      // Assert
+      expect(wrapper.vm.error).toBe('failed');
+    });
+  });
 });

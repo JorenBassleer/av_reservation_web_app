@@ -40,7 +40,7 @@ export default {
     const store = useStore();
     const router = useRoute();
 
-    const appliance = computed(() => store.state.appliances.find((single) => single.id == router.params.id));
+    const appliance = computed(() => store.state.appliances.find((single) => single.id === router.params.id));
 
     return { appliance };
   },
