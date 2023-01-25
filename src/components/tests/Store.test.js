@@ -100,7 +100,7 @@ describe('Vuex store', () => {
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(`${baseAPIUrl}appliances`);
   });
-  it('action getBrands', async () => {
+  it('action getBrands succeeds', async () => {
     // Arrange
     const mockBrandsList = {
       data: {
@@ -117,7 +117,19 @@ describe('Vuex store', () => {
     expect(axios.get).toHaveBeenCalledTimes(1);
     expect(axios.get).toHaveBeenCalledWith(`${baseAPIUrl}brands`);
   });
-  it('action getTypes', async () => {
+  it('action getBrands fails', async () => {
+    expect.assertions(1);
+    // Arrange
+    vi.spyOn(axios, 'get').mockRejectedValue('test');
+    // Act
+    try {
+      await store.dispatch('getBrands');
+    } catch (error) {
+      // Assert
+      expect(error.message).toBe('test');
+    }
+  });
+  it('action getTypes succeeds', async () => {
     // Arrange
     const mockTypesList = {
       data: {
@@ -133,6 +145,18 @@ describe('Vuex store', () => {
     // Assert
     expect(axiosSpy).toHaveBeenCalledTimes(1);
     expect(axiosSpy).toHaveBeenCalledWith(`${baseAPIUrl}types`);
+  });
+  it('action getTypes fails', async () => {
+    expect.assertions(1);
+    // Arrange
+    vi.spyOn(axios, 'get').mockRejectedValue('test');
+    // Act
+    try {
+      await store.dispatch('getTypes');
+    } catch (error) {
+      // Assert
+      expect(error.message).toBe('test');
+    }
   });
   // GETTERS
   it('getter appliances', () => {
