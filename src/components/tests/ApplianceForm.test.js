@@ -74,7 +74,10 @@ describe('ApplianceForm.vue', async () => {
     wrapper.vm.$nextTick(() => {
       // Assert
       expect(axios.post).toHaveBeenCalledTimes(1);
-      expect(axios.post).toHaveBeenCalledWith(`${baseAPIUrl}appliances`, testAppliance.data.data[0]);
+      expect(axios.post).toHaveBeenCalledWith(
+        `${baseAPIUrl}appliances`,
+        testAppliance.data.data[0],
+      );
       // Check if store dispatch getAppliances gets called
       expect(getAppliancesMock).toHaveBeenCalledTimes(1);
       // Check if $router get pushed
@@ -90,6 +93,11 @@ describe('ApplianceForm.vue', async () => {
   // Test failed form submit
   it('Fail submit sets error val', async () => {
     // Arrange
+    wrapper = mount(ApplianceForm, {
+      global: {
+        plugins: [store, router],
+      },
+    });
     expect.assertions(1);
     vi.spyOn(axios, 'post').mockRejectedValue('failed');
     // Act
@@ -97,6 +105,30 @@ describe('ApplianceForm.vue', async () => {
     wrapper.vm.$nextTick(() => {
       // Assert
       expect(wrapper.vm.error).toBe('failed');
+    });
+  });
+  it('clickedOnRow should set right ids', async () => {
+    // Arrange
+    wrapper = mount(ApplianceForm, {
+      global: {
+        plugins: [store, router],
+      },
+    });
+    // Act
+    const emittedBrand = {
+      rowId: 1,
+      type: 'brands',
+    };
+    const emittedType = {
+      rowId: 2,
+      type: 'types',
+    };
+    await wrapper.vm.clickedOnRow(emittedBrand);
+    await wrapper.vm.clickedOnRow(emittedType);
+    wrapper.vm.$nextTick(() => {
+      // Assert
+      expect(wrapper.vm.appliance.brand_id).toBe(1);
+      expect(wrapper.vm.appliance.type_id).toBe(2);
     });
   });
 });
