@@ -156,8 +156,8 @@ const handleSubmit = async () => {
       `${baseAPIUrl}appliances`,
       appliance.value,
     );
-    newAppliance = response.data.data;
-    await store.dispatch('getAppliances');
+    [newAppliance] = response.data.data;
+    store.dispatch('getAppliances');
     router.push({ name: 'view-appliance', params: { id: newAppliance.id } });
   } catch (err) {
     error.value = err;

@@ -6,6 +6,7 @@ import axios from 'axios';
 import { createStore } from 'vuex';
 import { createRouter, createWebHistory } from 'vue-router';
 import routes from '../../router/routes';
+// import routes from '../../router/routes';
 import ApplianceForm from '../appliances/ApplianceForm.vue';
 import baseAPIUrl from '../../composables/globals';
 
@@ -27,13 +28,17 @@ describe('ApplianceForm.vue', async () => {
     },
   };
   let store;
+  let router;
   let wrapper;
-  const router = createRouter({
-    history: createWebHistory(),
-    routes,
-  });
   let getAppliancesMock;
   beforeEach(async () => {
+    router = createRouter({
+      history: createWebHistory(),
+      routes,
+    });
+    router.push('/');
+    await router.isReady();
+
     getAppliancesMock = vi.fn();
     store = createStore({
       state: {
@@ -42,20 +47,14 @@ describe('ApplianceForm.vue', async () => {
       },
       actions: { getAppliances: getAppliancesMock },
     });
-    wrapper = mount(ApplianceForm, {
-      global: {
-        plugins: [store, router],
-        mocks: {
-          router: {
-            name: 'view-appliance',
-            params: { id: testAppliance.data.data[0].id },
-          },
-        },
-      },
-    });
   });
   // Test succcessful form submit
   it('Successful form post', async () => {
+    wrapper = mount(ApplianceForm, {
+      global: {
+        plugins: [store, router],
+      },
+    });
     // Arrange
     const [nameInput, imgUrlInput, manualUrlInput, storageInput] = wrapper.findAll('input');
     const [detailsTextarea] = wrapper.findAll('textarea');
@@ -68,8 +67,8 @@ describe('ApplianceForm.vue', async () => {
     wrapper.vm.appliance.brand_id = testAppliance.data.data[0].brand_id;
     wrapper.vm.appliance.type_id = testAppliance.data.data[0].type_id;
     wrapper.vm.appliance.id = testAppliance.data.data[0].id;
+    const push = vi.spyOn(router, 'push');
     vi.spyOn(axios, 'post').mockReturnValue(testAppliance);
-    vi.spyOn(router, 'push');
     // Act
     wrapper.find('form').trigger('submit.prevent');
     wrapper.vm.$nextTick(() => {
@@ -78,9 +77,9 @@ describe('ApplianceForm.vue', async () => {
       expect(axios.post).toHaveBeenCalledWith(`${baseAPIUrl}appliances`, testAppliance.data.data[0]);
       // Check if store dispatch getAppliances gets called
       expect(getAppliancesMock).toHaveBeenCalledTimes(1);
-      // Check if router get pushed
-      expect(router.push).toHaveBeenCalledTimes(1);
-      expect(router.push).toHaveBeenCalledWith({
+      // Check if $router get pushed
+      expect(push).toHaveBeenCalledTimes(1);
+      expect(push).toHaveBeenCalledWith({
         name: 'view-appliance',
         params: {
           id: testAppliance.data.data[0].id,
