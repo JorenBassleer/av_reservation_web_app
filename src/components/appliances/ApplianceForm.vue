@@ -137,14 +137,14 @@ const error = ref(null);
 const brands = computed(() => store.state.brands);
 const types = computed(() => store.state.types);
 
-const checkIfIdIsBrands = (type) => type === 'brands';
-
 const clickedOnRow = ({ rowId, type }) => {
-  if (checkIfIdIsBrands(type)) {
+  if (type === 'brands') {
     appliance.value.brand_id = rowId;
-  } else {
+  } else if (type === 'types') {
     // Id = type_id
     appliance.value.type_id = rowId;
+  } else {
+    error.value = 'Invalid type';
   }
 };
 

@@ -47,14 +47,15 @@ describe('ApplianceForm.vue', async () => {
       },
       actions: { getAppliances: getAppliancesMock },
     });
-  });
-  // Test succcessful form submit
-  it('Successful form post', async () => {
+
     wrapper = mount(ApplianceForm, {
       global: {
         plugins: [store, router],
       },
     });
+  });
+  // Test succcessful form submit
+  it('Successful form post', async () => {
     // Arrange
     const [nameInput, imgUrlInput, manualUrlInput, storageInput] = wrapper.findAll('input');
     const [detailsTextarea] = wrapper.findAll('textarea');
@@ -93,11 +94,6 @@ describe('ApplianceForm.vue', async () => {
   // Test failed form submit
   it('Fail submit sets error val', async () => {
     // Arrange
-    wrapper = mount(ApplianceForm, {
-      global: {
-        plugins: [store, router],
-      },
-    });
     expect.assertions(1);
     vi.spyOn(axios, 'post').mockRejectedValue('failed');
     // Act
@@ -109,12 +105,6 @@ describe('ApplianceForm.vue', async () => {
   });
   it('clickedOnRow should set right ids', async () => {
     // Arrange
-    wrapper = mount(ApplianceForm, {
-      global: {
-        plugins: [store, router],
-      },
-    });
-    // Act
     const emittedBrand = {
       rowId: 1,
       type: 'brands',
@@ -123,12 +113,26 @@ describe('ApplianceForm.vue', async () => {
       rowId: 2,
       type: 'types',
     };
+    // Act
     await wrapper.vm.clickedOnRow(emittedBrand);
     await wrapper.vm.clickedOnRow(emittedType);
     wrapper.vm.$nextTick(() => {
       // Assert
       expect(wrapper.vm.appliance.brand_id).toBe(1);
       expect(wrapper.vm.appliance.type_id).toBe(2);
+    });
+  });
+  it('clickedOnRow receives wrong type', async () => {
+    // Arrange
+    expect.assertions(1);
+    const wrongEmitVal = {
+      rowId: 1,
+      type: 'wrong type',
+    };
+    // Act
+    await wrapper.vm.clickedOnRow(wrongEmitVal);
+    wrapper.vm.$nextTick(() => {
+      expect(wrapper.vm.error).toBe('Invalid type');
     });
   });
 });
