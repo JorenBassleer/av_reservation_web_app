@@ -10,12 +10,10 @@ import ApplianceItem from '../appliances/ApplianceItem.vue';
 
 describe('ApplianceItem.vue', () => {
   let store;
+  let wrapper;
   beforeEach(() => {
     store = createStore();
-  });
-  it('Check link to appliance', async () => {
-    // Arrange
-    const wrapper = mount(ApplianceItem, {
+    wrapper = mount(ApplianceItem, {
       props: {
         appliance: {
           id: '1561',
@@ -35,9 +33,15 @@ describe('ApplianceItem.vue', () => {
         },
       },
     });
-    // Act
+  });
+  it('Check links to appliance', () => {
     // Assert
     expect(wrapper.findComponent(RouterLinkStub).props().to.name).toBe('view-appliance');
     expect(wrapper.findComponent(RouterLinkStub).props().to.params.id).toBe('1561');
+  });
+  it('Check if DOM has property values', () => {
+    expect(wrapper.html()).toContain('test-appliance');
+    expect(wrapper.html()).toContain('test-brand');
+    expect(wrapper.html()).toContain('test-type');
   });
 });
