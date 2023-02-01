@@ -127,10 +127,10 @@ export default {
       // eslint-disable-next-line array-callback-return
       const filteredCollection = collectionToFilter.filter((singleRow) => {
         if (filterSubject === 'brand') {
-          returnValue = singleRow.brand.name.includes(filterGiven);
+          returnValue = store.getters.findBrandById(singleRow.brand).name.includes(filterGiven);
         }
         if (filterSubject === 'type') {
-          returnValue = singleRow.type.name.includes(filterGiven);
+          returnValue = store.getters.findBrandById(singleRow.type).name.includes(filterGiven);
         }
         if (filterSubject === 'applianceName') {
           returnValue = singleRow.name.toLowerCase().includes(filterGiven.toLowerCase());
