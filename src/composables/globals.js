@@ -1,3 +1,3 @@
-const baseAPIUrl = 'http://127.0.0.1:8000/api/';
+const baseAPIUrl = 'http://localhost:3000/';
 
 export default baseAPIUrl;

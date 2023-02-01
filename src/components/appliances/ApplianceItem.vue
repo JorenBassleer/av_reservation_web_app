@@ -1,6 +1,6 @@
 <template>
   <div class="appliance-container">
-    <router-link :to="{name: 'view-appliance', params: { id: appliance.id }}">
+    <router-link :to="{name: 'view-appliance', params: { id: appliance._id }}">
       <div class="appliance-header">
         <div class="appliance-name">
           <h2>{{ appliance.name }}</h2>
@@ -10,15 +10,15 @@
     <div class="appliance-add-to-cart">
       <AddToCart :appliance="appliance" />
     </div>
-    <router-link :to="{name: 'view-appliance', params: { id: appliance.id }}">
+    <router-link :to="{name: 'view-appliance', params: { id: appliance._id }}">
       <div class="brand">
         <div>
-          <strong>Merk: </strong>{{ appliance.brand.name }}
+          <strong>Merk: </strong>{{ store.getters.findBrandById(appliance.brand).name }}
         </div>
       </div>
       <div class="type">
         <div>
-          <strong>Type: </strong>{{ appliance.type.name }}
+          <strong>Type: </strong>{{ store.getters.findTypeById(appliance.type).name }}
         </div>
       </div>
       <div class="appliance-img">
@@ -29,6 +29,7 @@
 </template>
 <script setup>
 import { defineProps } from 'vue';
+import { useStore } from 'vuex';
 import AddToCart from '../AddToReservationBtn.vue';
 
 defineProps({
@@ -37,6 +38,7 @@ defineProps({
     required: true,
   },
 });
+const store = useStore();
 </script>
 <style scoped>
 a, h2 {

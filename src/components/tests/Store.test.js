@@ -98,7 +98,7 @@ describe('Vuex store', () => {
     await store.dispatch('getAppliances');
     // Assert
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(`${baseAPIUrl}appliances`);
+    expect(axios.get).toHaveBeenCalledWith(`${baseAPIUrl}appliance`);
   });
   it('action getBrands succeeds', async () => {
     // Arrange
@@ -115,7 +115,7 @@ describe('Vuex store', () => {
     await store.dispatch('getBrands');
     // Assert
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(`${baseAPIUrl}brands`);
+    expect(axios.get).toHaveBeenCalledWith(`${baseAPIUrl}brand`);
   });
   it('action getBrands fails', async () => {
     expect.assertions(1);
@@ -144,7 +144,7 @@ describe('Vuex store', () => {
     await store.dispatch('getTypes');
     // Assert
     expect(axiosSpy).toHaveBeenCalledTimes(1);
-    expect(axiosSpy).toHaveBeenCalledWith(`${baseAPIUrl}types`);
+    expect(axiosSpy).toHaveBeenCalledWith(`${baseAPIUrl}type`);
   });
   it('action getTypes fails', async () => {
     expect.assertions(1);

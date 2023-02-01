@@ -33,6 +33,8 @@ export default createStore({
 
       return totalAmount;
     },
+    findBrandById: (state) => (id) => state.brands.find((brand) => brand._id === id),
+    findTypeById: (state) => (id) => state.types.find((type) => type._id === id),
   },
   mutations: {
     updateAppliances(state, appliances) {
@@ -49,7 +51,9 @@ export default createStore({
     },
     pushApplianceInReservation(state, appliance) {
       // Check if appliances is already in reservation
-      const applianceInReservationIndex = state.reservation.appliances.findIndex((item) => item.name === appliance.name);
+      const applianceInReservationIndex = state.reservation.appliances.findIndex(
+        (item) => item.name === appliance.name,
+      );
       if (applianceInReservationIndex !== -1) {
         // Appliance is in reservation -> ++ amount
         // eslint-disable-next-line no-param-reassign
@@ -65,8 +69,8 @@ export default createStore({
     async getAppliances({ commit }) {
       // Fetch all appliances and add to state
       try {
-        const response = await axios.get(`${baseAPIUrl}appliances`);
-        commit('updateAppliances', response.data.data[0]);
+        const response = await axios.get(`${baseAPIUrl}appliance`);
+        commit('updateAppliances', response.data);
       } catch (error) {
         throw new Error(error);
       }
@@ -74,8 +78,8 @@ export default createStore({
     async getBrands({ commit }) {
       // Fetch all brands and add to state
       try {
-        const response = await axios.get(`${baseAPIUrl}brands`);
-        commit('updateBrands', response.data.data[0]);
+        const response = await axios.get(`${baseAPIUrl}brand`);
+        commit('updateBrands', response.data);
       } catch (error) {
         throw new Error(error);
       }
@@ -83,13 +87,12 @@ export default createStore({
     async getTypes({ commit }) {
       // Fetch all types and add to state
       try {
-        const response = await axios.get(`${baseAPIUrl}types`);
-        commit('updateTypes', response.data.data[0]);
+        const response = await axios.get(`${baseAPIUrl}type`);
+        commit('updateTypes', response.data);
       } catch (error) {
         throw new Error(error);
       }
     },
   },
-  modules: {
-  },
+  modules: {},
 });
