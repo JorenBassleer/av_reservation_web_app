@@ -139,10 +139,13 @@ export default {
       returnValue = filteredCollection;
       return returnValue;
     };
+    console.log('store state appliances: ', store.state.appliances);
+    // eslint-disable-next-line arrow-body-style
     const appliances = computed(() => {
-      const brandFilteredApp = filter(store.state.appliances, 'brand', brandNameFilter.value);
-      const typeFilteredApp = filter(brandFilteredApp, 'type', typeNameFilter.value);
-      return filter(typeFilteredApp, 'applianceName', applianceNameFilter.value);
+      // const brandFilteredApp = filter(store.state.appliances, 'brand', brandNameFilter.value);
+      // const typeFilteredApp = filter(brandFilteredApp, 'type', typeNameFilter.value);
+      // return filter(typeFilteredApp, 'applianceName', applianceNameFilter.value);
+      return store.state.appliances;
     });
 
     const brands = computed(() => store.state.brands);

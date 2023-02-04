@@ -13,12 +13,12 @@
     <router-link :to="{name: 'view-appliance', params: { id: appliance._id }}">
       <div class="brand">
         <div>
-          <strong>Merk: </strong>{{ store.getters.findBrandById(appliance.brand).name }}
+          <strong>Merk: </strong>{{ store.getters.findBrandById(appliance.brand)?.name }}
         </div>
       </div>
       <div class="type">
         <div>
-          <strong>Type: </strong>{{ store.getters.findTypeById(appliance.type).name }}
+          <strong>Type: </strong>{{ store.getters.findTypeById(appliance.type)?.name }}
         </div>
       </div>
       <div class="appliance-img">
