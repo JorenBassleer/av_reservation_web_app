@@ -244,4 +244,30 @@ describe('Vuex store', () => {
     // Assert
     expect(result).toBe(10);
   });
+  it('getter findBrandById', () => {
+    // Arrange
+    const initBrands = [
+      { _id: 1, name: 'brand-name-1' },
+      { _id: 2, name: 'brand-name-2' },
+      { _id: 3, name: 'brand-name-3' },
+    ];
+    store.state.brands = initBrands;
+    // Act
+    const result = store.getters.findBrandById(1);
+    // Assert
+    expect(result).to.deep.equal({ _id: 1, name: 'brand-name-1' });
+  });
+  it('getter findTypeById', () => {
+    // Arrange
+    const initTypes = [
+      { _id: 1, name: 'type-name-1' },
+      { _id: 2, name: 'type-name-2' },
+      { _id: 3, name: 'type-name-3' },
+    ];
+    store.state.types = initTypes;
+    // Act
+    const result = store.getters.findTypeById(2);
+    // Arrange
+    expect(result).to.deep.equal({ _id: 2, name: 'type-name-2' });
+  });
 });
