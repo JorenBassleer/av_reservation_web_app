@@ -32,6 +32,7 @@ describe('ApplianceForm.vue', async () => {
   let wrapper;
   let getAppliancesMock;
   beforeEach(async () => {
+    vi.resetAllMocks();
     router = createRouter({
       history: createWebHistory(),
       routes,

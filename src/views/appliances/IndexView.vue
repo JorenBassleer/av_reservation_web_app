@@ -121,6 +121,7 @@ export default {
     const applianceNameFilter = ref('');
     const store = useStore();
 
+    // eslint-disable-next-line no-unused-vars
     const filter = (collectionToFilter, filterSubject, filterGiven) => {
       // Might have broken this filter if this is the case check code before eslint commit
       let returnValue;
@@ -139,7 +140,6 @@ export default {
       returnValue = filteredCollection;
       return returnValue;
     };
-    console.log('store state appliances: ', store.state.appliances);
     // eslint-disable-next-line arrow-body-style
     const appliances = computed(() => {
       // const brandFilteredApp = filter(store.state.appliances, 'brand', brandNameFilter.value);

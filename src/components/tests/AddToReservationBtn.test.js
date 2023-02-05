@@ -24,6 +24,7 @@ describe('AddToReservationBtn.vue', () => {
     },
   };
   beforeEach(() => {
+    vi.resetAllMocks();
     mockedIncFn = vi.fn();
     mockStore = createStore({
       state: { initReservation },

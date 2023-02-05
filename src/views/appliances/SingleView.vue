@@ -3,8 +3,8 @@
     <div class="appliance-container">
       <div class="appliance-heading">
         <h1>{{ appliance.name }}</h1>
-        <strong>Merk: </strong> {{ appliance.brand.name }}
-        <strong>Type: </strong> {{ appliance.type.name }}
+        <strong>Merk: </strong> {{ store.getters.findBrandById(appliance.brand)?.name || 'Geen merk naam'}}
+        <strong>Type: </strong> {{ store.getters.findTypeById(appliance.type)?.name || 'Geen type naam' }}
       </div>
       <div class="appliance-body">
         <div class="left-side">
@@ -38,7 +38,8 @@ import { useRoute } from 'vue-router';
 const store = useStore();
 const router = useRoute();
 
-const appliance = computed(() => store.state.appliances.find((single) => single.id === router.params.id));
+const appliance = computed(() => store.state.appliances.find((single) => single._id === router.params.id));
+
 </script>
 <style scoped>
 .content {
