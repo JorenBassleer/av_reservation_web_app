@@ -16,6 +16,18 @@ describe('ApplianceItem.vue', () => {
   beforeEach(() => {
     vi.resetAllMocks();
     store = createStore({
+      state: {
+        brands: [
+          { _id: 1, name: 'brand-1' },
+          { _id: 2, name: 'brand-2' },
+          { _id: 3, name: 'brand-3' },
+        ],
+        types: [
+          { _id: 1, name: 'type-1' },
+          { _id: 2, name: 'type-2' },
+          { _id: 3, name: 'type-3' },
+        ],
+      },
       getters: {
         findBrandById() {
           return mockedBrandNameFunc;
@@ -30,12 +42,8 @@ describe('ApplianceItem.vue', () => {
         appliance: {
           _id: '1561',
           name: 'test-appliance',
-          brand: {
-            name: 'test-brand',
-          },
-          type: {
-            name: 'test-type',
-          },
+          brand: 1,
+          type: 2,
         },
       },
       global: {
@@ -47,7 +55,6 @@ describe('ApplianceItem.vue', () => {
     });
   });
   it('Check links to appliance', () => {
-		console.log('routerlink', wrapper.findComponent(RouterLinkStub).props());
     // Assert
     expect(wrapper.findComponent(RouterLinkStub).props().to.name).toBe(
       'view-appliance',
@@ -56,9 +63,15 @@ describe('ApplianceItem.vue', () => {
       '1561',
     );
   });
+  it('Check brand and type getters', () => {
+    // Brand
+    expect(mockedBrandNameFunc).toBeCalled();
+    expect(mockedBrandNameFunc).toHaveBeenCalledWith(1);
+    // Type
+    expect(mockedTypeNameFunc).toBeCalled();
+    expect(mockedTypeNameFunc).toHaveBeenCalledWith(2);
+  });
   it('Check if DOM has appliance name', () => {
     expect(wrapper.html()).toContain('test-appliance');
-    expect(wrapper.html()).toContain('test-brand');
-    expect(wrapper.html()).toContain('test-type');
   });
 });
