@@ -15,7 +15,7 @@ describe('ApplianceForm.vue', async () => {
     data: {
       data: [
         {
-          id: 1,
+          _id: 1,
           name: 'test-appliance name',
           details: 'test-appliance details',
           brand_id: 1,
@@ -68,7 +68,7 @@ describe('ApplianceForm.vue', async () => {
     // Set id's since they are not inputs
     wrapper.vm.appliance.brand_id = testAppliance.data.data[0].brand_id;
     wrapper.vm.appliance.type_id = testAppliance.data.data[0].type_id;
-    wrapper.vm.appliance.id = testAppliance.data.data[0].id;
+    wrapper.vm.appliance._id = testAppliance.data.data[0]._id;
     const push = vi.spyOn(router, 'push');
     vi.spyOn(axios, 'post').mockReturnValue(testAppliance);
     // Act

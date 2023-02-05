@@ -13,7 +13,7 @@ describe('Vuex store', () => {
   it('mutation pushApplianceInReservation', () => {
     // Arrange
     const initAppliance = {
-      id: '123',
+      _id: '123',
       name: 'test-appliance',
       brand: {
         name: 'test-brand',
@@ -35,7 +35,7 @@ describe('Vuex store', () => {
     // Arrange
     const initAppliances = [];
     const initAppliance = {
-      id: '123',
+      _id: '123',
       name: 'test-appliance',
       brand: {
         name: 'test-brand',
@@ -57,7 +57,7 @@ describe('Vuex store', () => {
     // Arrange
     const initBrands = [];
     const initBrand = {
-      id: '123',
+      _id: '123',
       name: 'test-brand',
     };
     initBrands.push(initBrand);
@@ -73,7 +73,7 @@ describe('Vuex store', () => {
     // Arrange
     const initTypes = [];
     const initType = {
-      id: '123',
+      _id: '123',
       name: 'test-type',
     };
     initTypes.push(initType);
@@ -91,8 +91,8 @@ describe('Vuex store', () => {
     const mockAppliancesList = {
       data: {
         data: [
-          { id: 1, name: 'test-appliance-1' },
-          { id: 2, name: 'test-appliance-2' },
+          { _id: 1, name: 'test-appliance-1' },
+          { _id: 2, name: 'test-appliance-2' },
         ],
       },
     };
@@ -108,8 +108,8 @@ describe('Vuex store', () => {
     const mockBrandsList = {
       data: {
         data: [
-          { id: 1, name: 'brand-name-1' },
-          { id: 2, name: 'brand-name-2' },
+          { _id: 1, name: 'brand-name-1' },
+          { _id: 2, name: 'brand-name-2' },
         ],
       },
     };
@@ -137,8 +137,8 @@ describe('Vuex store', () => {
     const mockTypesList = {
       data: {
         data: [
-          { id: 1, name: 'type-name-1' },
-          { id: 2, name: 'type-name-2' },
+          { _id: 1, name: 'type-name-1' },
+          { _id: 2, name: 'type-name-2' },
         ],
       },
     };
@@ -165,10 +165,10 @@ describe('Vuex store', () => {
   it('getter appliances', () => {
     // Arrange
     const initAppliances = [
-      { id: 1, name: 'appliance-name-1' },
-      { id: 2, name: 'appliance-name-2' },
-      { id: 3, name: 'appliance-name-3' },
-      { id: 4, name: 'appliance-name-4' },
+      { _id: 1, name: 'appliance-name-1' },
+      { _id: 2, name: 'appliance-name-2' },
+      { _id: 3, name: 'appliance-name-3' },
+      { _id: 4, name: 'appliance-name-4' },
     ];
     store.state.appliances = initAppliances;
     // Act
@@ -179,10 +179,10 @@ describe('Vuex store', () => {
   it('getter brands', () => {
     // Arrange
     const initBrands = [
-      { id: 1, name: 'brand-name-1' },
-      { id: 2, name: 'brand-name-2' },
-      { id: 3, name: 'brand-name-3' },
-      { id: 4, name: 'brand-name-4' },
+      { _id: 1, name: 'brand-name-1' },
+      { _id: 2, name: 'brand-name-2' },
+      { _id: 3, name: 'brand-name-3' },
+      { _id: 4, name: 'brand-name-4' },
     ];
     store.state.brands = initBrands;
     // Act
@@ -193,10 +193,10 @@ describe('Vuex store', () => {
   it('getter types', () => {
     // Arrange
     const initTypes = [
-      { id: 1, name: 'types-name-1' },
-      { id: 2, name: 'types-name-2' },
-      { id: 3, name: 'types-name-3' },
-      { id: 4, name: 'types-name-4' },
+      { _id: 1, name: 'types-name-1' },
+      { _id: 2, name: 'types-name-2' },
+      { _id: 3, name: 'types-name-3' },
+      { _id: 4, name: 'types-name-4' },
     ];
     store.state.types = initTypes;
     // Act
@@ -208,9 +208,9 @@ describe('Vuex store', () => {
     // Arrange
     const initReservation = {
       appliances: [
-        { id: 1, name: 'appliance-name-1' },
-        { id: 2, name: 'appliance-name-2' },
-        { id: 3, name: 'appliance-name-3' },
+        { _id: 1, name: 'appliance-name-1' },
+        { _id: 2, name: 'appliance-name-2' },
+        { _id: 3, name: 'appliance-name-3' },
       ],
       amounts: [
         5,
@@ -228,9 +228,9 @@ describe('Vuex store', () => {
     // Arrange
     const initReservation = {
       appliances: [
-        { id: 1, name: 'appliance-name-1' },
-        { id: 2, name: 'appliance-name-2' },
-        { id: 3, name: 'appliance-name-3' },
+        { _id: 1, name: 'appliance-name-1' },
+        { _id: 2, name: 'appliance-name-2' },
+        { _id: 3, name: 'appliance-name-3' },
       ],
       amounts: [
         5,

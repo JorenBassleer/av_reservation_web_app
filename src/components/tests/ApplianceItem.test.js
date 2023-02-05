@@ -28,7 +28,7 @@ describe('ApplianceItem.vue', () => {
     wrapper = mount(ApplianceItem, {
       props: {
         appliance: {
-          id: '1561',
+          _id: '1561',
           name: 'test-appliance',
           brand: {
             name: 'test-brand',
@@ -47,6 +47,7 @@ describe('ApplianceItem.vue', () => {
     });
   });
   it('Check links to appliance', () => {
+		console.log('routerlink', wrapper.findComponent(RouterLinkStub).props());
     // Assert
     expect(wrapper.findComponent(RouterLinkStub).props().to.name).toBe(
       'view-appliance',
@@ -60,5 +61,4 @@ describe('ApplianceItem.vue', () => {
     expect(wrapper.html()).toContain('test-brand');
     expect(wrapper.html()).toContain('test-type');
   });
-	it('Check the if s')
 });
