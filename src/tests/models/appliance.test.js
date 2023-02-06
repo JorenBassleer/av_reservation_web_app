@@ -31,4 +31,7 @@ describe('Appliance model', () => {
       spy.mockRestore();
     });
   });
+	describe('all', () => {
+		
+	});
 });
