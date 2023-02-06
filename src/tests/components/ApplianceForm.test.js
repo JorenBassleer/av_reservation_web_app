@@ -6,7 +6,6 @@ import axios from 'axios';
 import { createStore } from 'vuex';
 import { createRouter, createWebHistory } from 'vue-router';
 import routes from '../../router/routes';
-// import routes from '../../router/routes';
 import ApplianceForm from '../../components/appliances/ApplianceForm.vue';
 import baseAPIUrl from '../../composables/globals';
 

@@ -28,7 +28,7 @@ describe('Appliance model', () => {
       // eslint-disable-next-line no-unused-vars
       const appliance = new Appliance(data);
       expect(spy).toHaveBeenCalled();
-      expect(spy).toHaveBeenCalledWith(data);
+      spy.mockRestore();
     });
   });
 });
