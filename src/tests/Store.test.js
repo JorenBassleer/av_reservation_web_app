@@ -2,8 +2,8 @@ import axios from 'axios';
 import {
   expect, describe, it, vi, beforeEach,
 } from 'vitest';
-import store from '../../store';
-import baseAPIUrl from '../../composables/globals';
+import store from '../store';
+import baseAPIUrl from '../composables/globals';
 
 describe('Vuex store', () => {
   beforeEach(() => {

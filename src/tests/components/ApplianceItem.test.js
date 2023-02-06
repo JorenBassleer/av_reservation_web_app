@@ -6,7 +6,7 @@ import { createStore } from 'vuex';
 import {
   expect, describe, it, beforeEach, vi,
 } from 'vitest';
-import ApplianceItem from '../appliances/ApplianceItem.vue';
+import ApplianceItem from '../../components/appliances/ApplianceItem.vue';
 
 describe('ApplianceItem.vue', () => {
   let store;

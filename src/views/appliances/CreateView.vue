@@ -8,17 +8,9 @@
     </div>
   </div>
 </template>
-<script>
-import { computed, ref } from 'vue';
-import { useStore } from 'vuex';
+<script setup>
 import ApplianceForm from '../../components/appliances/ApplianceForm.vue';
 
-export default {
-  components: { ApplianceForm },
-  setup() {
-
-  },
-};
 </script>
 <style scoped>
 .create-appliance-content {

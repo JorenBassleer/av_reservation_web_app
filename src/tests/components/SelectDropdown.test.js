@@ -2,7 +2,7 @@ import { shallowMount } from '@vue/test-utils';
 import {
   expect, describe, it, beforeEach,
 } from 'vitest';
-import SelectDropdown from '../SelectDropdown.vue';
+import SelectDropdown from '../../components/SelectDropdown.vue';
 
 describe('SelectDropdown.vue', () => {
   let wrapper;

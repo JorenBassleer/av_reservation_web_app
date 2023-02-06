@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils';
 import {
   expect, describe, it, beforeEach, vi,
 } from 'vitest';
-import AddToReservationBtn from '../AddToReservationBtn.vue';
+import AddToReservationBtn from '../../components/AddToReservationBtn.vue';
 
 describe('AddToReservationBtn.vue', () => {
   // Arrange
@@ -45,8 +45,8 @@ describe('AddToReservationBtn.vue', () => {
       global: { plugins: [mockStore] },
       props: { appliance: initAppliance },
     });
-    // Act
     const spy = vi.spyOn(wrapper.vm, 'addToReservation');
+    // Act
     wrapper.find('button').trigger('click');
     // Assert
     expect(spy).toHaveBeenCalled();
