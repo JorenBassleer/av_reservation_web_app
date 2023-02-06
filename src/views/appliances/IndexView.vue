@@ -15,7 +15,7 @@
             <li
               v-for="brand in brands"
               :key="brand.id"
-              :class="{ isActive: brandNameFilter == brand.name}"
+              :class="{ isActive: brandNameFilter == brand.name }"
               @click="brandNameFilter = brand.name"
             >
               <span>{{ brand.name }}</span>
@@ -36,7 +36,7 @@
             <li
               v-for="kind in types"
               :key="kind.id"
-              :class="{ isActive: typeNameFilter == kind.name}"
+              :class="{ isActive: typeNameFilter == kind.name }"
               @click="typeNameFilter = kind.name"
             >
               <span>{{ kind.name }}</span>
@@ -46,7 +46,7 @@
       </div>
       <div class="add-appliance">
         <div>
-          <router-link :to="{name: 'create-appliance'}">
+          <router-link :to="{ name: 'create-appliance' }">
             <button>Voeg apparaat toe:</button>
           </router-link>
         </div>
@@ -67,7 +67,12 @@
         <strong>Active filters: {{ typeNameFilter }} {{ brandNameFilter }}</strong>
       </div>
       <div class="delete-btn">
-        <button @click="typeNameFilter = ''; brandNameFilter = ''">
+        <button
+          @click="
+            typeNameFilter = '';
+            brandNameFilter = '';
+          "
+        >
           Delete filters
         </button>
       </div>
@@ -104,164 +109,163 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed, ref } from 'vue';
 import { useStore } from 'vuex';
 import gsap from 'gsap';
 import ApplianceItem from '../../components/appliances/ApplianceItem.vue';
 
-export default {
-  components: { ApplianceItem },
+const showBrands = ref(false);
+const showTypes = ref(false);
+const brandNameFilter = ref('');
+const typeNameFilter = ref('');
+const applianceNameFilter = ref('');
+const store = useStore();
 
-  setup() {
-    const showBrands = ref(false);
-    const showTypes = ref(false);
-    const brandNameFilter = ref('');
-    const typeNameFilter = ref('');
-    const applianceNameFilter = ref('');
-    const store = useStore();
+// eslint-disable-next-line no-unused-vars
+const filter = (collectionToFilter, filterSubject, filterGiven) => {
+  // Might have broken this filter if this is the case check code before eslint commit
+  let returnValue;
+  // eslint-disable-next-line array-callback-return
+  const filteredCollection = collectionToFilter.filter((singleRow) => {
+    if (filterSubject === 'brand') {
+      returnValue = store.getters
+        .findBrandById(singleRow.brand)
+        .name.includes(filterGiven);
+    }
+    if (filterSubject === 'type') {
+      returnValue = store.getters
+        .findBrandById(singleRow.type)
+        .name.includes(filterGiven);
+    }
+    if (filterSubject === 'applianceName') {
+      returnValue = singleRow.name
+        .toLowerCase()
+        .includes(filterGiven.toLowerCase());
+    }
+  });
+  returnValue = filteredCollection;
+  return returnValue;
+};
+// eslint-disable-next-line arrow-body-style
+const appliances = computed(() => {
+  // const brandFilteredApp = filter(store.state.appliances, 'brand', brandNameFilter.value);
+  // const typeFilteredApp = filter(brandFilteredApp, 'type', typeNameFilter.value);
+  // return filter(typeFilteredApp, 'applianceName', applianceNameFilter.value);
+  return store.state.appliances;
+});
 
-    // eslint-disable-next-line no-unused-vars
-    const filter = (collectionToFilter, filterSubject, filterGiven) => {
-      // Might have broken this filter if this is the case check code before eslint commit
-      let returnValue;
-      // eslint-disable-next-line array-callback-return
-      const filteredCollection = collectionToFilter.filter((singleRow) => {
-        if (filterSubject === 'brand') {
-          returnValue = store.getters.findBrandById(singleRow.brand).name.includes(filterGiven);
-        }
-        if (filterSubject === 'type') {
-          returnValue = store.getters.findBrandById(singleRow.type).name.includes(filterGiven);
-        }
-        if (filterSubject === 'applianceName') {
-          returnValue = singleRow.name.toLowerCase().includes(filterGiven.toLowerCase());
-        }
-      });
-      returnValue = filteredCollection;
-      return returnValue;
-    };
-    // eslint-disable-next-line arrow-body-style
-    const appliances = computed(() => {
-      // const brandFilteredApp = filter(store.state.appliances, 'brand', brandNameFilter.value);
-      // const typeFilteredApp = filter(brandFilteredApp, 'type', typeNameFilter.value);
-      // return filter(typeFilteredApp, 'applianceName', applianceNameFilter.value);
-      return store.state.appliances;
-    });
+const brands = computed(() => store.state.brands);
+const types = computed(() => store.state.types);
 
-    const brands = computed(() => store.state.brands);
-    const types = computed(() => store.state.types);
-
-    const beforeEnter = (el) => {
-      /* eslint-disable no-param-reassign */
-      el.style.opacity = 0;
-      el.style.transform = 'translateY(100px)';
-      /* eslint-enable no-param-reassign */
-    };
-    const enter = (el, done) => {
-      gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        onComplete: done,
-        delay: el.dataset.index * 0.1,
-      });
-    };
-    return {
-      appliances,
-      brands,
-      types,
-      brandNameFilter,
-      typeNameFilter,
-      applianceNameFilter,
-      showBrands,
-      showTypes,
-      beforeEnter,
-      enter,
-    };
-  },
+const beforeEnter = (el) => {
+  /* eslint-disable no-param-reassign */
+  el.style.opacity = 0;
+  el.style.transform = 'translateY(100px)';
+  /* eslint-enable no-param-reassign */
+};
+const enter = (el, done) => {
+  gsap.to(el, {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    onComplete: done,
+    delay: el.dataset.index * 0.1,
+  });
 };
 </script>
 <style scoped>
 .content {
-    margin: 0 auto;
-    width: 60%;
+  margin: 0 auto;
+  width: 60%;
 }
 .appliances-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100%;
-    margin: 10px 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 10px 0;
 }
-.filter, .filter-delete .delete-btn, .filter-delete .filter-info, .search-bar {
-    display: flex;
-    margin-left: 30px;
+.filter,
+.filter-delete .delete-btn,
+.filter-delete .filter-info,
+.search-bar {
+  display: flex;
+  margin-left: 30px;
 }
-.filter-delete .delete-btn button, .add-appliance button {
-    cursor: pointer;
-    font: inherit;
-    border: none;
-    outline: inherit;
-    color: #e1dcce;
-    margin: auto 0px;
-    border-radius: 8px;
-    padding: 10px;
-    background: #473f2b;
+.filter-delete .delete-btn button,
+.add-appliance button {
+  cursor: pointer;
+  font: inherit;
+  border: none;
+  outline: inherit;
+  color: #e1dcce;
+  margin: auto 0px;
+  border-radius: 8px;
+  padding: 10px;
+  background: #473f2b;
 }
 .filter-info {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 .add-appliance {
-    margin-left: 450px;
+  margin-left: 450px;
 }
 .search-bar {
-    margin-top: 10px;
-    margin-left: 20px;
+  margin-top: 10px;
+  margin-left: 20px;
 }
 .search-bar input {
-    border: none;
-    outline: inherit;
-    padding: 10px;
-    width: 260px;
-    border-radius: 8px;
+  border: none;
+  outline: inherit;
+  padding: 10px;
+  width: 260px;
+  border-radius: 8px;
 }
-.brands, .types {
-    margin: 0 5px;
-    padding: 5px;
-    text-align: start;
+.brands,
+.types {
+  margin: 0 5px;
+  padding: 5px;
+  text-align: start;
 }
-.brands strong, .types strong {
-    cursor: pointer;
+.brands strong,
+.types strong {
+  cursor: pointer;
 }
-.brands ul, .types ul{
+.brands ul,
+.types ul {
   list-style-type: none;
   margin: 10px 0 0 0;
   padding: 0;
 }
-.brands li, .types li {
-    border-radius: 8px;
-    cursor: pointer;
-    padding: 2px;
+.brands li,
+.types li {
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 2px;
 }
-.brands li:hover, .types li:hover {
-    padding: 5px 2px;
-    background: #e1dcce;
+.brands li:hover,
+.types li:hover {
+  padding: 5px 2px;
+  background: #e1dcce;
 }
 .isActive {
-    padding: 5px 2px;
-    background: #aca89d;
+  padding: 5px 2px;
+  background: #aca89d;
 }
 /*--animations-- */
-.filter-list-enter-from, .filter-list-leave-to {
-    opacity: 0;
-    transform: scale(0.6);
+.filter-list-enter-from,
+.filter-list-leave-to {
+  opacity: 0;
+  transform: scale(0.6);
 }
-.filter-list-enter-to, .filter-list-from {
-    opacity: 1;
-    transform: scale(1);
+.filter-list-enter-to,
+.filter-list-from {
+  opacity: 1;
+  transform: scale(1);
 }
-.filter-list-enter-active, .filter-list-leave-active {
-    transition: all 0.4s ease;
+.filter-list-enter-active,
+.filter-list-leave-active {
+  transition: all 0.4s ease;
 }
-
 </style>

@@ -25,7 +25,12 @@ const props = defineProps({
     required: true,
   },
 });
-const emit = defineEmits(['clickedOnRow']);
+const emit = defineEmits({
+  clickedOnRow(payload) {
+    if (payload.rowId && payload.type) return true;
+    return false;
+  },
+});
 const rowId = ref(0);
 const clickedOnRow = (clickedId) => {
   emit('clickedOnRow', {
