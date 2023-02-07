@@ -42,8 +42,16 @@ describe('ApplianceForm.vue', async () => {
     getAppliancesMock = vi.fn();
     store = createStore({
       state: {
-        brands: [],
-        types: [],
+        brands: [
+          { _id: 1, name: 'brand-name-1' },
+          { _id: 2, name: 'brand-name-2' },
+          { _id: 3, name: 'brand-name-3' },
+        ],
+        types: [
+          { _id: 1, name: 'type-name-1' },
+          { _id: 2, name: 'type-name-2' },
+          { _id: 3, name: 'type-name-3' },
+        ],
       },
       actions: { getAppliances: getAppliancesMock },
     });
@@ -134,6 +142,18 @@ describe('ApplianceForm.vue', async () => {
     wrapper.vm.$nextTick(() => {
       expect(wrapper.vm.error).toBe('Invalid type');
     });
+  });
+  it('computed properties', () => {
+    expect(wrapper.vm.brands).toEqual([
+      { _id: 1, name: 'brand-name-1' },
+      { _id: 2, name: 'brand-name-2' },
+      { _id: 3, name: 'brand-name-3' },
+    ]);
+    expect(wrapper.vm.types).toEqual([
+      { _id: 1, name: 'type-name-1' },
+      { _id: 2, name: 'type-name-2' },
+      { _id: 3, name: 'type-name-3' },
+    ]);
   });
   it('Match snapshot', () => {
     expect(wrapper.html()).toMatchSnapshot();

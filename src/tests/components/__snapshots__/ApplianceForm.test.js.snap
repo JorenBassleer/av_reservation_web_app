@@ -15,11 +15,19 @@ exports[`ApplianceForm.vue > Match snapshot 1`] = `
     <div class=\\"type-brand\\" data-v-0dac4654=\\"\\">
       <div class=\\"brands\\" data-v-0dac4654=\\"\\">
         <div class=\\"appliance-label\\" data-v-0dac4654=\\"\\"><label for=\\"brands\\" data-v-0dac4654=\\"\\">Selecteer een merk:</label></div>
-        <div class=\\"appliance-select\\" data-v-0dac4654=\\"\\"><select data-v-0484f41b=\\"\\" data-v-0dac4654=\\"\\"></select></div>
+        <div class=\\"appliance-select\\" data-v-0dac4654=\\"\\"><select data-v-0484f41b=\\"\\" data-v-0dac4654=\\"\\">
+            <option data-v-0484f41b=\\"\\">brand-name-1</option>
+            <option data-v-0484f41b=\\"\\">brand-name-2</option>
+            <option data-v-0484f41b=\\"\\">brand-name-3</option>
+          </select></div>
       </div>
       <div class=\\"types\\" data-v-0dac4654=\\"\\">
         <div class=\\"appliance-label\\" data-v-0dac4654=\\"\\"><label for=\\"types\\" data-v-0dac4654=\\"\\">Selecteer een type:</label></div>
-        <div class=\\"appliance-select\\" data-v-0dac4654=\\"\\"><select data-v-0484f41b=\\"\\" data-v-0dac4654=\\"\\"></select></div>
+        <div class=\\"appliance-select\\" data-v-0dac4654=\\"\\"><select data-v-0484f41b=\\"\\" data-v-0dac4654=\\"\\">
+            <option data-v-0484f41b=\\"\\">type-name-1</option>
+            <option data-v-0484f41b=\\"\\">type-name-2</option>
+            <option data-v-0484f41b=\\"\\">type-name-3</option>
+          </select></div>
       </div>
     </div>
     <div class=\\"side-info\\" data-v-0dac4654=\\"\\">

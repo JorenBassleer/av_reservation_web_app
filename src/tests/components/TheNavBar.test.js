@@ -42,4 +42,7 @@ describe('Appliance.vue', () => {
     // Assert
     expect(applianceNumber).toBe(60);
   });
+  it('computed property', () => {
+    expect(wrapper.vm.amountOfAppliances).toBe(60);
+  });
 });
