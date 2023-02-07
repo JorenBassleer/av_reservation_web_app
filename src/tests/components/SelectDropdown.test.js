@@ -15,6 +15,9 @@ describe('SelectDropdown.vue', () => {
       },
     });
   });
+  it('Match snapshot', () => {
+    expect(wrapper.html()).toMatchSnapshot();
+  });
   it('Emit row id with prop.type', () => {
     // Act
     wrapper.vm.clickedOnRow(1);

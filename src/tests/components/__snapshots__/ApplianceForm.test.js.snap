@@ -1,0 +1,44 @@
+// Vitest Snapshot v1
+
+exports[`ApplianceForm.vue > Match snapshot 1`] = `
+"<div class=\\"appliance\\" data-v-0dac4654=\\"\\">
+  <form data-v-0dac4654=\\"\\">
+    <div class=\\"main-info\\" data-v-0dac4654=\\"\\">
+      <!--v-if-->
+      <div class=\\"appliance-label\\" data-v-0dac4654=\\"\\">
+        <div data-v-0dac4654=\\"\\"><label for=\\"appliance_name\\" data-v-0dac4654=\\"\\">Apparaat naam:</label></div>
+      </div>
+      <div class=\\"appliance-input\\" data-v-0dac4654=\\"\\"><input type=\\"text\\" class=\\"\\" name=\\"appliance_name\\" required=\\"\\" data-v-0dac4654=\\"\\"><br data-v-0dac4654=\\"\\"></div>
+      <div class=\\"appliance-label\\" data-v-0dac4654=\\"\\"><label for=\\"appliance_details\\" data-v-0dac4654=\\"\\">Details:</label></div>
+      <div class=\\"appliance-input\\" data-v-0dac4654=\\"\\"><textarea type=\\"textarea\\" class=\\"\\" name=\\"appliance_details\\" required=\\"\\" data-v-0dac4654=\\"\\"></textarea></div>
+    </div>
+    <div class=\\"type-brand\\" data-v-0dac4654=\\"\\">
+      <div class=\\"brands\\" data-v-0dac4654=\\"\\">
+        <div class=\\"appliance-label\\" data-v-0dac4654=\\"\\"><label for=\\"brands\\" data-v-0dac4654=\\"\\">Selecteer een merk:</label></div>
+        <div class=\\"appliance-select\\" data-v-0dac4654=\\"\\"><select data-v-0484f41b=\\"\\" data-v-0dac4654=\\"\\"></select></div>
+      </div>
+      <div class=\\"types\\" data-v-0dac4654=\\"\\">
+        <div class=\\"appliance-label\\" data-v-0dac4654=\\"\\"><label for=\\"types\\" data-v-0dac4654=\\"\\">Selecteer een type:</label></div>
+        <div class=\\"appliance-select\\" data-v-0dac4654=\\"\\"><select data-v-0484f41b=\\"\\" data-v-0dac4654=\\"\\"></select></div>
+      </div>
+    </div>
+    <div class=\\"side-info\\" data-v-0dac4654=\\"\\">
+      <div class=\\"urls\\" data-v-0dac4654=\\"\\">
+        <div class=\\"appliance-label\\" data-v-0dac4654=\\"\\">
+          <div data-v-0dac4654=\\"\\"><label for=\\"appliance_img_url\\" data-v-0dac4654=\\"\\">foto url:</label></div>
+        </div>
+        <div class=\\"appliance-input\\" data-v-0dac4654=\\"\\"><input type=\\"text\\" class=\\"\\" name=\\"appliance_img_url\\" data-v-0dac4654=\\"\\"><br data-v-0dac4654=\\"\\"></div>
+        <div class=\\"appliance-label\\" data-v-0dac4654=\\"\\">
+          <div data-v-0dac4654=\\"\\"><label for=\\"appliance_manual_url\\" data-v-0dac4654=\\"\\">handleiding url:</label></div>
+        </div>
+        <div class=\\"appliance-input\\" data-v-0dac4654=\\"\\"><input type=\\"text\\" class=\\"\\" name=\\"appliance_manual_url\\" data-v-0dac4654=\\"\\"><br data-v-0dac4654=\\"\\"></div>
+      </div>
+      <div class=\\"storage-amount\\" data-v-0dac4654=\\"\\">
+        <div class=\\"appliance-label\\" data-v-0dac4654=\\"\\"><label for=\\"appliance_storage\\" data-v-0dac4654=\\"\\">Voorraad:</label></div>
+        <div class=\\"appliance-input\\" data-v-0dac4654=\\"\\"><input id=\\"\\" type=\\"number\\" name=\\"appliance_storage\\" min=\\"0\\" data-v-0dac4654=\\"\\"></div>
+      </div>
+    </div>
+    <div data-v-0dac4654=\\"\\"><button data-v-0dac4654=\\"\\">Slaag op</button></div>
+  </form>
+</div>"
+`;

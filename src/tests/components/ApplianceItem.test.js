@@ -54,6 +54,9 @@ describe('ApplianceItem.vue', () => {
       },
     });
   });
+  it('Match snapshot', () => {
+    expect(wrapper.html()).toMatchSnapshot();
+  });
   it('Check links to appliance', () => {
     // Assert
     expect(wrapper.findComponent(RouterLinkStub).props().to.name).toBe(

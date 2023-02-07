@@ -1,0 +1,23 @@
+// Vitest Snapshot v1
+
+exports[`ApplianceItem.vue > Match snapshot 1`] = `
+"<div class=\\"appliance-container\\" data-v-7061a44d=\\"\\"><a data-v-7061a44d=\\"\\">
+    <div class=\\"appliance-header\\" data-v-7061a44d=\\"\\">
+      <div class=\\"appliance-name\\" data-v-7061a44d=\\"\\">
+        <h2 data-v-7061a44d=\\"\\">test-appliance</h2>
+      </div>
+    </div>
+  </a>
+  <div class=\\"appliance-add-to-cart\\" data-v-7061a44d=\\"\\">
+    <div data-v-9348ee48=\\"\\" data-v-7061a44d=\\"\\"><button class=\\"add-btn\\" data-v-9348ee48=\\"\\"> Add </button></div>
+  </div><a data-v-7061a44d=\\"\\">
+    <div class=\\"brand\\" data-v-7061a44d=\\"\\">
+      <div data-v-7061a44d=\\"\\"><strong data-v-7061a44d=\\"\\">Merk: </strong></div>
+    </div>
+    <div class=\\"type\\" data-v-7061a44d=\\"\\">
+      <div data-v-7061a44d=\\"\\"><strong data-v-7061a44d=\\"\\">Type: </strong></div>
+    </div>
+    <div class=\\"appliance-img\\" data-v-7061a44d=\\"\\"><img alt=\\"test-appliance\\" data-v-7061a44d=\\"\\"></div>
+  </a>
+</div>"
+`;

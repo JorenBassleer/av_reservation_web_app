@@ -51,4 +51,7 @@ describe('AddToReservationBtn.vue', () => {
     // Assert
     expect(spy).toHaveBeenCalled();
   });
+  it('Match snapshot', () => {
+    expect(wrapper.html()).toMatchSnapshot();
+  });
 });

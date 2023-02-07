@@ -31,6 +31,9 @@ describe('Appliance.vue', () => {
     expect(wrapper.findAllComponents(RouterLinkStub)[1].props().to).toBe('/apparaten');
     expect(wrapper.findAllComponents(RouterLinkStub)[2].props().to).toBe('/mijn-reservatie');
   });
+  it('Match snapshot', () => {
+    expect(wrapper.html()).toMatchSnapshot();
+  });
   it('#appliances-number has total amount of appliances in reservation', async () => {
     // Arrange
     // Act

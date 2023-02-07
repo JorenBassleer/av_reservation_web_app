@@ -135,4 +135,7 @@ describe('ApplianceForm.vue', async () => {
       expect(wrapper.vm.error).toBe('Invalid type');
     });
   });
+  it('Match snapshot', () => {
+    expect(wrapper.html()).toMatchSnapshot();
+  });
 });
