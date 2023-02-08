@@ -30,6 +30,7 @@ describe('Vuex store', () => {
     expect(store.state.reservation.appliances).toEqual(
       expect.arrayContaining([expect.objectContaining(initAppliance)]),
     );
+    expect(store.state.reservation).toMatchSnapshot();
   });
   it('mutation updateAppliances', () => {
     // Arrange
@@ -52,6 +53,7 @@ describe('Vuex store', () => {
     expect(store.state.appliances).toEqual(
       expect.arrayContaining([expect.objectContaining(initAppliance)]),
     );
+    expect(store.state.appliances).toMatchSnapshot();
   });
   it('mutation updateBrands', () => {
     // Arrange
@@ -68,6 +70,7 @@ describe('Vuex store', () => {
     expect(store.state.brands).toEqual(
       expect.arrayContaining([expect.objectContaining(initBrand)]),
     );
+    expect(store.state.brands).toMatchSnapshot();
   });
   it('mutation updateTypes', () => {
     // Arrange
@@ -84,6 +87,7 @@ describe('Vuex store', () => {
     expect(store.state.types).toEqual(
       expect.arrayContaining([expect.objectContaining(initType)]),
     );
+    expect(store.state.types).toMatchSnapshot();
   });
   // ACTIONS
   it('action getAppliances', async () => {
@@ -121,7 +125,7 @@ describe('Vuex store', () => {
     expect(axios.get).toHaveBeenCalledWith(`${baseAPIUrl}brand`);
   });
   it('action getBrands fails', async () => {
-    expect.assertions(1);
+    expect.assertions(2);
     // Arrange
     vi.spyOn(axios, 'get').mockRejectedValue('test');
     // Act
@@ -130,6 +134,7 @@ describe('Vuex store', () => {
     } catch (error) {
       // Assert
       expect(error.message).toBe('test');
+      expect(error).toMatchSnapshot();
     }
   });
   it('action getTypes succeeds', async () => {
@@ -150,7 +155,7 @@ describe('Vuex store', () => {
     expect(axiosSpy).toHaveBeenCalledWith(`${baseAPIUrl}type`);
   });
   it('action getTypes fails', async () => {
-    expect.assertions(1);
+    expect.assertions(2);
     // Arrange
     vi.spyOn(axios, 'get').mockRejectedValue('test');
     // Act
@@ -159,6 +164,7 @@ describe('Vuex store', () => {
     } catch (error) {
       // Assert
       expect(error.message).toBe('test');
+      expect(error.message).toMatchSnapshot();
     }
   });
   // GETTERS
@@ -175,6 +181,7 @@ describe('Vuex store', () => {
     const result = store.getters.appliances;
     // Assert
     expect(result).to.deep.equal(initAppliances);
+    expect(result).toMatchSnapshot();
   });
   it('getter brands', () => {
     // Arrange
@@ -189,6 +196,7 @@ describe('Vuex store', () => {
     const result = store.getters.brands;
     // Assert
     expect(result).to.deep.equal(initBrands);
+    expect(result).toMatchSnapshot();
   });
   it('getter types', () => {
     // Arrange
@@ -203,6 +211,7 @@ describe('Vuex store', () => {
     const result = store.getters.types;
     // Assert
     expect(result).to.deep.equal(initTypes);
+    expect(result).toMatchSnapshot();
   });
   it('getter reservation', () => {
     // Arrange
@@ -223,6 +232,7 @@ describe('Vuex store', () => {
     const result = store.getters.reservation;
     // Assert
     expect(result).to.deep.equal(initReservation);
+    expect(result).toMatchSnapshot();
   });
   it('getter getTotalAmountOfAppliancesInReservation', () => {
     // Arrange
@@ -243,6 +253,7 @@ describe('Vuex store', () => {
     const result = store.getters.getTotalAmountOfAppliancesInReservation;
     // Assert
     expect(result).toBe(10);
+    expect(result).toMatchSnapshot();
   });
   it('getter findBrandById', () => {
     // Arrange
@@ -256,6 +267,7 @@ describe('Vuex store', () => {
     const result = store.getters.findBrandById(1);
     // Assert
     expect(result).to.deep.equal({ _id: 1, name: 'brand-name-1' });
+    expect(result).toMatchSnapshot();
   });
   it('getter findTypeById', () => {
     // Arrange
@@ -269,5 +281,6 @@ describe('Vuex store', () => {
     const result = store.getters.findTypeById(2);
     // Arrange
     expect(result).to.deep.equal({ _id: 2, name: 'type-name-2' });
+    expect(result).toMatchSnapshot();
   });
 });
