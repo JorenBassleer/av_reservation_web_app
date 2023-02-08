@@ -1,0 +1,161 @@
+// Vitest Snapshot v1
+
+exports[`Vuex store > action getBrands fails 1`] = `[Error: test]`;
+
+exports[`Vuex store > action getTypes fails 1`] = `"test"`;
+
+exports[`Vuex store > getter appliances 1`] = `
+[
+  {
+    "_id": 1,
+    "name": "appliance-name-1",
+  },
+  {
+    "_id": 2,
+    "name": "appliance-name-2",
+  },
+  {
+    "_id": 3,
+    "name": "appliance-name-3",
+  },
+  {
+    "_id": 4,
+    "name": "appliance-name-4",
+  },
+]
+`;
+
+exports[`Vuex store > getter brands 1`] = `
+[
+  {
+    "_id": 1,
+    "name": "brand-name-1",
+  },
+  {
+    "_id": 2,
+    "name": "brand-name-2",
+  },
+  {
+    "_id": 3,
+    "name": "brand-name-3",
+  },
+  {
+    "_id": 4,
+    "name": "brand-name-4",
+  },
+]
+`;
+
+exports[`Vuex store > getter findBrandById 1`] = `
+{
+  "_id": 1,
+  "name": "brand-name-1",
+}
+`;
+
+exports[`Vuex store > getter findTypeById 1`] = `
+{
+  "_id": 2,
+  "name": "type-name-2",
+}
+`;
+
+exports[`Vuex store > getter getTotalAmountOfAppliancesInReservation 1`] = `10`;
+
+exports[`Vuex store > getter reservation 1`] = `
+{
+  "amounts": [
+    5,
+    2,
+    3,
+  ],
+  "appliances": [
+    {
+      "_id": 1,
+      "name": "appliance-name-1",
+    },
+    {
+      "_id": 2,
+      "name": "appliance-name-2",
+    },
+    {
+      "_id": 3,
+      "name": "appliance-name-3",
+    },
+  ],
+}
+`;
+
+exports[`Vuex store > getter types 1`] = `
+[
+  {
+    "_id": 1,
+    "name": "types-name-1",
+  },
+  {
+    "_id": 2,
+    "name": "types-name-2",
+  },
+  {
+    "_id": 3,
+    "name": "types-name-3",
+  },
+  {
+    "_id": 4,
+    "name": "types-name-4",
+  },
+]
+`;
+
+exports[`Vuex store > mutation pushApplianceInReservation 1`] = `
+{
+  "amounts": [
+    1,
+  ],
+  "appliances": [
+    {
+      "_id": "123",
+      "brand": {
+        "name": "test-brand",
+      },
+      "name": "test-appliance",
+      "type": {
+        "name": "test-type",
+      },
+    },
+  ],
+}
+`;
+
+exports[`Vuex store > mutation updateAppliances 1`] = `
+[
+  {
+    "_id": "123",
+    "brand": {
+      "name": "test-brand",
+    },
+    "name": "test-appliance",
+    "type": {
+      "name": "test-type",
+    },
+  },
+]
+`;
+
+exports[`Vuex store > mutation updateBrands 1`] = `
+[
+  {
+    "_id": "123",
+    "name": "test-brand",
+  },
+]
+`;
+
+exports[`Vuex store > mutation updateTypes 1`] = `
+[
+  {
+    "_id": "123",
+    "name": "test-type",
+  },
+]
+`;
